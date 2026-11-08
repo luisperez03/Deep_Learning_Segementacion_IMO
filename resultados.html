@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -328,7 +328,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supuestos-de-los-contrastes">Supuestos de los contrastes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diferencias-relativas-y-umbral-para-modelos-avanzados">Diferencias relativas y umbral para modelos avanzados</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-convergencia-y-costo">Entrenamiento: convergencia y costo</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generalizacion-validacion-frente-a-test">Generalización: validación frente a test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generalizacion-entrenamiento-validacion-y-test">Generalización: entrenamiento, validación y test</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#equivalencia-sin-suponer-normalidad">Equivalencia sin suponer normalidad</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones-declaradas">Limitaciones declaradas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-para-la-siguiente-etapa">Decisión para la siguiente etapa</a></li>
@@ -1239,50 +1239,63 @@ dos grupos, y por eso el costo se compara con la latencia de inferencia, que se 
 diferencia de hardware y de determinismo es una amenaza a la validez interna del contraste entre los dos grupos
 de redes: parte de la ventaja de PSPNet y DeepLab podría deberse al entorno y no a la arquitectura.</p>
 </section>
-<section id="generalizacion-validacion-frente-a-test">
-<h2>Generalización: validación frente a test<a class="headerlink" href="#generalizacion-validacion-frente-a-test" title="Link to this heading">#</a></h2>
+<section id="generalizacion-entrenamiento-validacion-y-test">
+<h2>Generalización: entrenamiento, validación y test<a class="headerlink" href="#generalizacion-entrenamiento-validacion-y-test" title="Link to this heading">#</a></h2>
+<p>El Dice de entrenamiento se calculó después, pasando cada uno de los 25 checkpoints elegidos por las 1.015 imágenes
+de train con el mismo preprocesamiento y la misma ponderación por grupos. Como control, se recalculó también el Dice
+de validación de cada checkpoint, y coincidió con el registrado durante el entrenamiento en las 25 corridas.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Red</p></th>
-<th class="head"><p>Dice de validación (mejor época)</p></th>
+<th class="head"><p>Dice de entrenamiento</p></th>
+<th class="head"><p>Dice de validación</p></th>
 <th class="head"><p>Dice de test</p></th>
-<th class="head"><p>Test − validación</p></th>
+<th class="head"><p>Entrenamiento − validación</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>FCN</p></td>
+<td><p>0,8815</p></td>
 <td><p>0,8330</p></td>
 <td><p>0,8531</p></td>
-<td><p>+0,0201</p></td>
+<td><p>0,0485</p></td>
 </tr>
 <tr class="row-odd"><td><p>SegNet</p></td>
+<td><p>0,8651</p></td>
 <td><p>0,8193</p></td>
 <td><p>0,8386</p></td>
-<td><p>+0,0193</p></td>
+<td><p>0,0458</p></td>
 </tr>
 <tr class="row-even"><td><p>U-Net</p></td>
+<td><p>0,8815</p></td>
 <td><p>0,8272</p></td>
 <td><p>0,8451</p></td>
-<td><p>+0,0179</p></td>
+<td><p>0,0543</p></td>
 </tr>
 <tr class="row-odd"><td><p>DeepLab compacta</p></td>
+<td><p>0,9054</p></td>
 <td><p>0,8479</p></td>
 <td><p>0,8612</p></td>
-<td><p>+0,0133</p></td>
+<td><p>0,0575</p></td>
 </tr>
 <tr class="row-even"><td><p>PSPNet compacta</p></td>
+<td><p>0,8947</p></td>
 <td><p>0,8442</p></td>
 <td><p>0,8667</p></td>
-<td><p>+0,0225</p></td>
+<td><p>0,0505</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Las cinco redes rinden mejor en test que en validación, por entre 1,3 y 2,3 puntos. No hay señal de sobreajuste
-a la validación. La diferencia apunta a que el test es algo más fácil, coherente con el EDA, que encontró
-diferencias de distribución entre particiones (fracción de etiqueta, KS p = 0,007). Como el desplazamiento es
-parecido en las cinco redes, no altera el orden entre ellas. Los historiales no registran el Dice de
-entrenamiento, así que la brecha entre entrenamiento y validación no se puede cuantificar.</p>
+<p>La brecha entre entrenamiento y validación va de 0,046 (SegNet) a 0,058 (DeepLab): las cinco redes ajustan mejor
+los datos con que aprendieron, con un sobreajuste moderado y parecido entre ellas. Las dos redes con contexto
+multiescala tienen la brecha algo mayor, pero también el mejor desempeño en validación y en test, así que su
+ventaja no se explica por memorizar el entrenamiento. En test, las cinco rinden entre 1,3 y 2,3 puntos más que en
+validación. No hay señal de sobreajuste a la validación, y la diferencia apunta a que el test es algo más fácil,
+coherente con el EDA (fracción de etiqueta, KS p = 0,007). Como el desplazamiento es parecido en las cinco redes,
+no altera el orden entre ellas.</p>
+<p><em>Cálculo:</em> <code class="docutils literal notranslate"><span class="pre">dice_entrenamiento.py</span></code> con HAZMAT-13 descargado del enlace oficial. El SHA-256 de las 1.233 imágenes y
+máscaras de train y validación coincidió con los manifiestos.</p>
 </section>
 <section id="equivalencia-sin-suponer-normalidad">
 <h2>Equivalencia sin suponer normalidad<a class="headerlink" href="#equivalencia-sin-suponer-normalidad" title="Link to this heading">#</a></h2>
@@ -1415,13 +1428,13 @@ presupuesto para todas.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Procedencia y anotación</p></td>
-<td><p>Los manifiestos congelan las copias utilizadas mediante SHA-256. La revisión visual previa identifica errores concretos. Quedan sin estimar la tasa poblacional de ruido y el acuerdo con un segundo anotador. Tampoco se certificó la identidad con una versión externa del corpus.</p></td>
+<td><p>Los manifiestos congelan las copias utilizadas mediante SHA-256. La revisión visual previa identifica errores concretos. Quedan sin estimar la tasa poblacional de ruido y el acuerdo con un segundo anotador. La identidad con la descarga oficial del corpus se verificó por SHA-256 en train y validación.</p></td>
 </tr>
 <tr class="row-odd"><td><p>Diseño e independencia</p></td>
 <td><p>Se usaron cinco semillas comunes y una partición agrupada. El piloto retrospectivo permite estimar la dispersión y dimensionar otro estudio. La validación cruzada agrupada repetida, una sexta semilla y un test externo quedan fuera del diseño ejecutado.</p></td>
 </tr>
 <tr class="row-even"><td><p>Entrenamiento</p></td>
-<td><p>Las configuraciones se fijaron sin búsqueda de hiperparámetros. Los historiales permiten estudiar pérdida de entrenamiento y Dice de validación. Faltan mediciones por época de Dice de entrenamiento y pérdida de validación para cuantificar directamente la brecha.</p></td>
+<td><p>Las configuraciones se fijaron sin búsqueda de hiperparámetros. La brecha entre entrenamiento y validación se midió con los checkpoints elegidos (0,046 a 0,058). Los historiales no registran el Dice de entrenamiento por época, así que no hay curvas de esa brecha.</p></td>
 </tr>
 <tr class="row-odd"><td><p>Inferencia e interpretación</p></td>
 <td><p>El benchmark incluye las cuatro métricas con dispersión e intervalos, contrastes pareados, equivalencia entre arquitecturas, coste, segmentación por tamaño y diagnóstico de robustez. La latencia se midió en CPU y las perturbaciones sobre una submuestra de test. Las métricas por categoría describen presencia en imágenes con máscara binaria.</p></td>
@@ -1509,7 +1522,7 @@ presupuesto para todas.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supuestos-de-los-contrastes">Supuestos de los contrastes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diferencias-relativas-y-umbral-para-modelos-avanzados">Diferencias relativas y umbral para modelos avanzados</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-convergencia-y-costo">Entrenamiento: convergencia y costo</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generalizacion-validacion-frente-a-test">Generalización: validación frente a test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generalizacion-entrenamiento-validacion-y-test">Generalización: entrenamiento, validación y test</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#equivalencia-sin-suponer-normalidad">Equivalencia sin suponer normalidad</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones-declaradas">Limitaciones declaradas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-para-la-siguiente-etapa">Decisión para la siguiente etapa</a></li>

@@ -52,8 +52,9 @@ Las versiones exactas de cada corrida están en su `config.json`; las del test d
 
 ## Cómo reproducir
 
-1. Descargar HAZMAT-13 y comprobar que los SHA-256 de imágenes y máscaras coinciden con los de
-   `protocolo/*.csv`.
+1. Descargar HAZMAT-13 desde el repositorio oficial (https://github.com/mrl-amrl/HAZMAT13), primer enlace de
+   descarga (carpeta `VOC2012`, con 1.685 fotografías y 1.583 máscaras), y comprobar que los SHA-256 de
+   imágenes y máscaras coinciden con los de `protocolo/*.csv`. Verificado el 2026-11-08 para train y validación.
 2. Entrenar cada red y semilla con la configuración de `corridas/*/config.json`. **[Por completar por Luis:
    script y comando de entrenamiento.]**
 3. Evaluar el checkpoint de cada corrida sobre `protocolo/test.csv`. **[Por completar: script y comando de

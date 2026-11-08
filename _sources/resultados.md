@@ -143,21 +143,30 @@ dos grupos, y por eso el costo se compara con la latencia de inferencia, que se 
 diferencia de hardware y de determinismo es una amenaza a la validez interna del contraste entre los dos grupos
 de redes: parte de la ventaja de PSPNet y DeepLab podría deberse al entorno y no a la arquitectura.
 
-## Generalización: validación frente a test
+## Generalización: entrenamiento, validación y test
 
-| Red | Dice de validación (mejor época) | Dice de test | Test − validación |
-|---|---|---|---|
-| FCN | 0,8330 | 0,8531 | +0,0201 |
-| SegNet | 0,8193 | 0,8386 | +0,0193 |
-| U-Net | 0,8272 | 0,8451 | +0,0179 |
-| DeepLab compacta | 0,8479 | 0,8612 | +0,0133 |
-| PSPNet compacta | 0,8442 | 0,8667 | +0,0225 |
+El Dice de entrenamiento se calculó después, pasando cada uno de los 25 checkpoints elegidos por las 1.015 imágenes
+de train con el mismo preprocesamiento y la misma ponderación por grupos. Como control, se recalculó también el Dice
+de validación de cada checkpoint, y coincidió con el registrado durante el entrenamiento en las 25 corridas.
 
-Las cinco redes rinden mejor en test que en validación, por entre 1,3 y 2,3 puntos. No hay señal de sobreajuste
-a la validación. La diferencia apunta a que el test es algo más fácil, coherente con el EDA, que encontró
-diferencias de distribución entre particiones (fracción de etiqueta, KS p = 0,007). Como el desplazamiento es
-parecido en las cinco redes, no altera el orden entre ellas. Los historiales no registran el Dice de
-entrenamiento, así que la brecha entre entrenamiento y validación no se puede cuantificar.
+| Red | Dice de entrenamiento | Dice de validación | Dice de test | Entrenamiento − validación |
+|---|---|---|---|---|
+| FCN | 0,8815 | 0,8330 | 0,8531 | 0,0485 |
+| SegNet | 0,8651 | 0,8193 | 0,8386 | 0,0458 |
+| U-Net | 0,8815 | 0,8272 | 0,8451 | 0,0543 |
+| DeepLab compacta | 0,9054 | 0,8479 | 0,8612 | 0,0575 |
+| PSPNet compacta | 0,8947 | 0,8442 | 0,8667 | 0,0505 |
+
+La brecha entre entrenamiento y validación va de 0,046 (SegNet) a 0,058 (DeepLab): las cinco redes ajustan mejor
+los datos con que aprendieron, con un sobreajuste moderado y parecido entre ellas. Las dos redes con contexto
+multiescala tienen la brecha algo mayor, pero también el mejor desempeño en validación y en test, así que su
+ventaja no se explica por memorizar el entrenamiento. En test, las cinco rinden entre 1,3 y 2,3 puntos más que en
+validación. No hay señal de sobreajuste a la validación, y la diferencia apunta a que el test es algo más fácil,
+coherente con el EDA (fracción de etiqueta, KS p = 0,007). Como el desplazamiento es parecido en las cinco redes,
+no altera el orden entre ellas.
+
+*Cálculo:* `dice_entrenamiento.py` con HAZMAT-13 descargado del enlace oficial. El SHA-256 de las 1.233 imágenes y
+máscaras de train y validación coincidió con los manifiestos.
 
 ## Equivalencia sin suponer normalidad
 
@@ -251,8 +260,8 @@ presupuesto para todas.
 
 | Aspecto | Evidencia y límite |
 |---|---|
-| Procedencia y anotación | Los manifiestos congelan las copias utilizadas mediante SHA-256. La revisión visual previa identifica errores concretos. Quedan sin estimar la tasa poblacional de ruido y el acuerdo con un segundo anotador. Tampoco se certificó la identidad con una versión externa del corpus. |
+| Procedencia y anotación | Los manifiestos congelan las copias utilizadas mediante SHA-256. La revisión visual previa identifica errores concretos. Quedan sin estimar la tasa poblacional de ruido y el acuerdo con un segundo anotador. La identidad con la descarga oficial del corpus se verificó por SHA-256 en train y validación. |
 | Diseño e independencia | Se usaron cinco semillas comunes y una partición agrupada. El piloto retrospectivo permite estimar la dispersión y dimensionar otro estudio. La validación cruzada agrupada repetida, una sexta semilla y un test externo quedan fuera del diseño ejecutado. |
-| Entrenamiento | Las configuraciones se fijaron sin búsqueda de hiperparámetros. Los historiales permiten estudiar pérdida de entrenamiento y Dice de validación. Faltan mediciones por época de Dice de entrenamiento y pérdida de validación para cuantificar directamente la brecha. |
+| Entrenamiento | Las configuraciones se fijaron sin búsqueda de hiperparámetros. La brecha entre entrenamiento y validación se midió con los checkpoints elegidos (0,046 a 0,058). Los historiales no registran el Dice de entrenamiento por época, así que no hay curvas de esa brecha. |
 | Inferencia e interpretación | El benchmark incluye las cuatro métricas con dispersión e intervalos, contrastes pareados, equivalencia entre arquitecturas, coste, segmentación por tamaño y diagnóstico de robustez. La latencia se midió en CPU y las perturbaciones sobre una submuestra de test. Las métricas por categoría describen presencia en imágenes con máscara binaria. |
 
