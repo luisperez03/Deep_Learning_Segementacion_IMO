@@ -21,4 +21,4 @@ Las tres ramas del diagrama tienen funciones distintas. Entrenamiento ajusta los
 :start-line: 1
 ```
 
-El {download}`resumen ejecutivo <../docs/RESUMEN_EJECUTIVO.md>` recoge los resultados principales.
+Los pesos, los historiales y las tablas de resultados se pueden consultar en el {ref}`archivo de las cinco redes <archivo-cinco-redes>`.

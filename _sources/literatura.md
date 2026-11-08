@@ -35,7 +35,7 @@ Fundamentos de arquitectura → Long et al., Badrinarayanan et al., Ronneberger 
 
 ### Búsqueda exploratoria complementaria
 
-Se documentaron nueve consultas exploratorias sobre el corpus y las arquitecturas. Las cadenas se transcriben del {download}`registro de procedencia y literatura <../docs/PROCEDENCIA_Y_LITERATURA.md>`.
+Se documentaron nueve consultas exploratorias sobre el corpus y las arquitecturas. Las cadenas empleadas fueron las siguientes.
 
 ```text
 hazardous material placard segmentation dataset 1685 images 13 classes

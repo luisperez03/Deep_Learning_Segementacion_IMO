@@ -484,7 +484,7 @@
 <h3>Coste observado y alcance<a class="headerlink" href="#coste-observado-y-alcance" title="Link to this heading">#</a></h3>
 <p>Tiempo medio registrado por corrida en A100, incluyendo entrenamiento y validación: DeepLab compacta, 2.9 min, PSPNet compacta, 3.0 min. FCN, SegNet y U-Net se entrenaron en CPU y T4. Las diferencias de duración mezclan arquitectura, hardware, caché y perfil numérico. El conteo de parámetros sí se puede comparar directamente.</p>
 <p>FCN conserva su papel de referencia del benchmark. PSPNet compacta ofrece el mayor Dice observado en test y su mejora media queda por debajo de δ. La validación sobre otros puertos y otras particiones sigue abierta. El diseño aporta cinco semillas por arquitectura, una partición agrupada y configuraciones fijas. No se realizó búsqueda de hiperparámetros, validación cruzada repetida ni una segunda anotación independiente.</p>
-<p>Los datos de las tablas están disponibles como <a class="reference download internal" download="" href="_downloads/b94a50f50d26cd58f7e81a531fa73c1c/metricas_25_corridas.csv"><code class="xref download docutils literal notranslate"><span class="pre">métricas</span> <span class="pre">de</span> <span class="pre">las</span> <span class="pre">25</span> <span class="pre">corridas</span></code></a> y <a class="reference download internal" download="" href="_downloads/af2f6bf78d4bd682e7c690072600512b/benchmark.csv"><code class="xref download docutils literal notranslate"><span class="pre">resumen</span> <span class="pre">con</span> <span class="pre">intervalos</span> <span class="pre">de</span> <span class="pre">las</span> <span class="pre">cuatro</span> <span class="pre">métricas</span></code></a>. El <a class="reference download internal" download="" href="_downloads/a924803186497df40fd6051a4da6f6b7/cierre_a100.py"><code class="xref download docutils literal notranslate"><span class="pre">script</span> <span class="pre">de</span> <span class="pre">cierre</span></code></a> comprueba identificadores, grupos, semillas y concordancia con los resúmenes del ZIP.</p>
+<p>Las métricas de las 25 corridas y el resumen con intervalos se encuentran en <code class="docutils literal notranslate"><span class="pre">comparacion/metricas_25_corridas.csv</span></code> y <code class="docutils literal notranslate"><span class="pre">comparacion/benchmark.csv</span></code> del <a class="reference internal" href="implementacion.html#archivo-cinco-redes"><span class="std std-ref">archivo de las cinco redes</span></a>.</p>
 </section>
 </section>
 <section id="lectura-de-las-predicciones">
@@ -759,7 +759,7 @@
 </section>
 <section id="categorias-presentes-y-casos-dificiles">
 <h3>Categorías presentes y casos difíciles<a class="headerlink" href="#categorias-presentes-y-casos-dificiles" title="Link to this heading">#</a></h3>
-<p>Se realizaron 26 contrastes exploratorios entre FCN y las nuevas bases, uno por modelo y categoría presente. Cada imagen conserva su máscara binaria completa. Se promediaron imágenes dentro del grupo y luego semillas. Con ajuste de Holm sobre toda la familia, 0 contrastes tuvieron p ajustado inferior a 0,05. La tabla descargable incluye los tamaños de muestra y las diferencias. <a class="reference download internal" download="" href="_downloads/f88e68321e3bb33167374d47a40ea467/categorias.csv"><code class="xref download docutils literal notranslate"><span class="pre">Comparaciones</span> <span class="pre">por</span> <span class="pre">categoría</span></code></a>.</p>
+<p>Se realizaron 26 contrastes exploratorios entre FCN y las nuevas bases, uno por modelo y categoría presente. Cada imagen conserva su máscara binaria completa. Se promediaron imágenes dentro del grupo y luego semillas. Con ajuste de Holm sobre toda la familia, 0 contrastes tuvieron p ajustado inferior a 0,05. La tabla <code class="docutils literal notranslate"><span class="pre">comparacion/categorias.csv</span></code> del ZIP incluye los tamaños de muestra y las diferencias.</p>
 <p>Cinco imágenes con menor Dice medio en las 25 corridas. Los ejemplos se ordenaron sobre todas las imágenes de test.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -849,7 +849,7 @@
 </tbody>
 </table>
 </div>
-<p>Los <a class="reference download internal" download="" href="_downloads/af2dd74648b11d56c3e425331b4b6640/robustez_24_grupos.csv"><code class="xref download docutils literal notranslate"><span class="pre">resultados</span> <span class="pre">por</span> <span class="pre">imagen</span> <span class="pre">y</span> <span class="pre">perturbación</span></code></a> y el <a class="reference download internal" download="" href="_downloads/5da241b973d0a28f4ed734ba8bc5f794/robustez_cierre.py"><code class="xref download docutils literal notranslate"><span class="pre">programa</span> <span class="pre">de</span> <span class="pre">medición</span></code></a> permiten revisar la auditoría.</p>
+<p>Los resultados por imagen y perturbación se conservan en <code class="docutils literal notranslate"><span class="pre">comparacion/robustez_24_grupos.csv</span></code> del ZIP.</p>
 </section>
 </section>
 <section id="variacion-entre-semillas-y-equivalencia-practica">
@@ -966,7 +966,7 @@
 </tbody>
 </table>
 </div>
-<p>Un p TOST ajustado inferior a 0,05 respalda equivalencia dentro del margen. Los contrastes de superioridad frente a FCN del benchmark responden a si la diferencia media es distinta de cero. <a class="reference download internal" download="" href="_downloads/a8fc0b7557e1c15e84cf63e4be79b801/equivalencia_y_dimensionamiento.csv"><code class="xref download docutils literal notranslate"><span class="pre">Datos</span> <span class="pre">de</span> <span class="pre">los</span> <span class="pre">diez</span> <span class="pre">contrastes</span></code></a>.</p>
+<p>Un p TOST ajustado inferior a 0,05 respalda equivalencia dentro del margen. Los contrastes de superioridad frente a FCN del benchmark responden a si la diferencia media es distinta de cero. Los diez contrastes se detallan en <code class="docutils literal notranslate"><span class="pre">comparacion/equivalencia_y_dimensionamiento.csv</span></code> del ZIP.</p>
 </section>
 <section id="decision-para-la-siguiente-etapa">
 <h2>Decisión para la siguiente etapa<a class="headerlink" href="#decision-para-la-siguiente-etapa" title="Link to this heading">#</a></h2>

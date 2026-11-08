@@ -1,6 +1,6 @@
 # EDA y preparación
 
-El {download}`cuaderno de EDA original <eda_original.ipynb>` conserva el análisis previo a la partición definitiva. Aquí se integran sus diagnósticos con los manifiestos y máscaras usados en las corridas.
+Este capítulo integra la exploración inicial con los manifiestos y las máscaras usados en las 25 corridas.
 
 (conteo-por-categoria)=
 ## Cuántas imágenes contienen cada categoría
