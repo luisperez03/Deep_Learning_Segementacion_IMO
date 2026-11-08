@@ -11,6 +11,9 @@ Cada red recibe la misma fotografía RGB de 256 × 256 y predice un logit por p�
 
 Una convolución calcula $h_j=\mathrm{ReLU}(b_j+\sum_i W_{ji}*x_i)$. Para un núcleo de lado $k$, con $C_i$ canales de entrada y $C_o$ de salida, aporta $(k^2 C_i+1)C_o$ parámetros. En un mapa de $H\times W$ su costo es del orden de $HWk^2C_iC_o$ operaciones por imagen. Se suma por capa; la retropropagación conserva el orden y añade gradientes y activaciones intermedias. La tabla de tiempos mide épocas con entrenamiento y validación incluidos.
 
+```{include} ecuaciones_redes.inc
+```
+
 ```{include} fundamentos.inc
 ```
 
@@ -46,4 +49,4 @@ La pérdida Dice suave es $1-(2\sum py+\epsilon)/(\sum p+\sum y+\epsilon)$, dond
 
 FCN, SegNet y U-Net se entrenaron en CPU y T4 con determinismo habilitado en modo de advertencia. Sus tres corridas de semilla 11 y FCN con semilla 23 se ejecutaron en CPU. SegNet con semilla 23 pasó de CPU a T4 tras la primera época. Las demás corridas de estas arquitecturas usaron T4. DeepLab compacta y PSPNet compacta se entrenaron en A100-SXM4-80GB con caché de datos, TF32, selección de algoritmos cuDNN por rendimiento y determinismo desactivado. Estas diferencias limitan la atribución de los resultados exclusivamente a la arquitectura. En Resultados se mide la latencia de las cinco redes en la misma CPU.
 
-Las implementaciones de {download}`FCN, SegNet y U-Net <../scripts/modelos_base.py>` y de {download}`DeepLab y PSPNet compactas <../scripts/bases_v2.py>` definen las cinco arquitecturas. El {download}`cuaderno A100 <../colab/Experimento_IMO_A100_optimizado.ipynb>` y su {download}`archivo de resultados <../colab/IMO_resultados_A100.zip>` conservan configuraciones, pesos e historias. Los {download}`paneles de predicciones <../scripts/paneles_cierre.py>` se reconstruyen con los cinco checkpoints de semilla 11, las imágenes de test, la normalización de entrenamiento y las máscaras verificadas por SHA-256. El {download}`generador de diagramas y curvas <../scripts/figuras_cinco.py>` reúne las cinco arquitecturas.
+Las implementaciones de {download}`FCN, SegNet y U-Net <../scripts/modelos_base.py>` y de {download}`DeepLab y PSPNet compactas <../scripts/bases_v2.py>` definen las cinco arquitecturas. El {download}`cuaderno A100 <../colab/Experimento_IMO_A100_optimizado.ipynb>` documenta las corridas de las dos redes compactas. El {download}`ZIP de las cinco redes <../colab/IMO_cinco_redes.zip>` reúne los pesos seleccionados, las historias y los resultados de test de las 25 corridas, incluidas las de FCN, SegNet y U-Net. Los {download}`paneles de predicciones <../scripts/paneles_cierre.py>` se reconstruyen con los cinco checkpoints de semilla 11, las imágenes de test, la normalización de entrenamiento y las máscaras verificadas por SHA-256. El {download}`generador de diagramas y curvas <../scripts/figuras_cinco.py>` reúne las cinco arquitecturas.

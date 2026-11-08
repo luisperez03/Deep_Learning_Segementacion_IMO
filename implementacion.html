@@ -320,6 +320,14 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pspnet-compacta">PSPNet compacta</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ecuaciones-de-las-cinco-arquitecturas">Ecuaciones de las cinco arquitecturas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fcn-prediccion-desde-el-mapa-grueso">FCN · predicción desde el mapa grueso</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#segnet-reconstruccion-con-indices-de-maximos">SegNet · reconstrucción con índices de máximos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#u-net-recuperacion-de-detalle-mediante-concatenacion">U-Net · recuperación de detalle mediante concatenación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deeplab-compacta-convolucion-dilatada-y-contexto-global">DeepLab compacta · convolución dilatada y contexto global</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pspnet-compacta-piramide-de-promedios-regionales">PSPNet compacta · pirámide de promedios regionales</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#de-un-pixel-rgb-a-un-mapa-de-caracteristicas">De un píxel RGB a un mapa de características</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#que-informacion-llega-al-decodificador">Qué información llega al decodificador</a></li>
 </ul>
@@ -654,6 +662,78 @@
 <p>Una convolución calcula <span class="math notranslate nohighlight">\(h_j=\mathrm{ReLU}(b_j+\sum_i W_{ji}*x_i)\)</span>. Para un núcleo de lado <span class="math notranslate nohighlight">\(k\)</span>, con <span class="math notranslate nohighlight">\(C_i\)</span> canales de entrada y <span class="math notranslate nohighlight">\(C_o\)</span> de salida, aporta <span class="math notranslate nohighlight">\((k^2 C_i+1)C_o\)</span> parámetros. En un mapa de <span class="math notranslate nohighlight">\(H\times W\)</span> su costo es del orden de <span class="math notranslate nohighlight">\(HWk^2C_iC_o\)</span> operaciones por imagen. Se suma por capa; la retropropagación conserva el orden y añade gradientes y activaciones intermedias. La tabla de tiempos mide épocas con entrenamiento y validación incluidos.</p>
 </section>
 </section>
+<section id="ecuaciones-de-las-cinco-arquitecturas">
+<h2>Ecuaciones de las cinco arquitecturas<a class="headerlink" href="#ecuaciones-de-las-cinco-arquitecturas" title="Link to this heading">#</a></h2>
+<p>Las cinco redes son CNN para segmentación semántica binaria. Para cada píxel válido, la salida <span class="math notranslate nohighlight">\(z\)</span> es un logit y la decisión es <span class="math notranslate nohighlight">\(\hat y=\mathbf 1[\sigma(z)\geq 0{,}5]\)</span>. Los diagramas de cada red en este capítulo siguen el mismo recorrido que las ecuaciones.</p>
+<p>Escribimos <span class="math notranslate nohighlight">\(C_k\)</span> para una convolución aprendida de lado <span class="math notranslate nohighlight">\(k\)</span> con sesgo, <span class="math notranslate nohighlight">\(\rho(t)=\max(0,t)\)</span> y <span class="math notranslate nohighlight">\(B(X)=\rho(C_3^{(2)}(\rho(C_3^{(1)}(X))))\)</span>. Cada bloque tiene pesos propios. Si <span class="math notranslate nohighlight">\(M\)</span> toma el máximo por canal en ventanas de <span class="math notranslate nohighlight">\(2\times2\)</span> con paso 2, el codificador de las cinco redes se expresa como</p>
+<div class="math notranslate nohighlight">
+\[
+A=B_1(X),\qquad B=B_2(M(A)),\qquad H=B_3(M(B)).
+\]</div>
+<p>En orden canales × alto × ancho, <span class="math notranslate nohighlight">\(A\)</span> mide <span class="math notranslate nohighlight">\(16\times256\times256\)</span>, <span class="math notranslate nohighlight">\(B\)</span> mide <span class="math notranslate nohighlight">\(32\times128\times128\)</span> y <span class="math notranslate nohighlight">\(H\)</span> mide <span class="math notranslate nohighlight">\(64\times64\times64\)</span>. Usamos <span class="math notranslate nohighlight">\(U_s\)</span> para interpolación bilineal hasta <span class="math notranslate nohighlight">\(s\times s\)</span> con <code class="docutils literal notranslate"><span class="pre">align_corners=False</span></code>, <span class="math notranslate nohighlight">\(N_s\)</span> para ampliación por vecino más cercano y <span class="math notranslate nohighlight">\([\cdot]\)</span> para concatenación por canales.</p>
+<section id="fcn-prediccion-desde-el-mapa-grueso">
+<h3>FCN · predicción desde el mapa grueso<a class="headerlink" href="#fcn-prediccion-desde-el-mapa-grueso" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+z=U_{256}\big(C_1^{64\to1}(H)\big).
+\]</div>
+<p>La cabeza puntúa el rótulo en una rejilla de 64 × 64 y cada logit final interpola los puntajes vecinos. El diseño supone que esa rejilla conserva suficiente información espacial. Favorece máscaras suaves y puede perder un borde fino antes de la ampliación.</p>
+</section>
+<section id="segnet-reconstruccion-con-indices-de-maximos">
+<h3>SegNet · reconstrucción con índices de máximos<a class="headerlink" href="#segnet-reconstruccion-con-indices-de-maximos" title="Link to this heading">#</a></h3>
+<p>Sean <span class="math notranslate nohighlight">\(I_1,I_2\)</span> las posiciones elegidas al reducir <span class="math notranslate nohighlight">\(A,B\)</span>. El operador <span class="math notranslate nohighlight">\(S_I\)</span> coloca cada valor en la posición guardada de su ventana y rellena el resto con cero. Con bloques de decodificación <span class="math notranslate nohighlight">\(D_2\)</span> y <span class="math notranslate nohighlight">\(D_1\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+T=D_2\big(S_{I_2}(C_1^{64\to32}(H))\big),\qquad
+F=D_1\big(S_{I_1}(T)\big),\qquad z=C_1^{16\to1}(F).
+\]</div>
+<p><span class="math notranslate nohighlight">\(D_2\)</span> devuelve 16 canales a 128 × 128 y <span class="math notranslate nohighlight">\(D_1\)</span> conserva esos canales a 256 × 256. El diseño supone que la posición de la activación máxima da una pista fiable sobre dónde reconstruir la etiqueta. Las convoluciones completan las posiciones que quedaron vacías.</p>
+</section>
+<section id="u-net-recuperacion-de-detalle-mediante-concatenacion">
+<h3>U-Net · recuperación de detalle mediante concatenación<a class="headerlink" href="#u-net-recuperacion-de-detalle-mediante-concatenacion" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+T=D_2([N_{128}(H),B]),\qquad F=D_1([N_{256}(T),A]),\qquad z=C_1^{16\to1}(F).
+\]</div>
+<p>La primera concatenación reúne 64 + 32 canales y la segunda reúne 32 + 16. El diseño supone que los rasgos superficiales alineados con el píxel ayudan a recuperar contornos. También pueden transmitir al decodificador bordes del fondo.</p>
+</section>
+<section id="deeplab-compacta-convolucion-dilatada-y-contexto-global">
+<h3>DeepLab compacta · convolución dilatada y contexto global<a class="headerlink" href="#deeplab-compacta-convolucion-dilatada-y-contexto-global" title="Link to this heading">#</a></h3>
+<p>Para dilatación <span class="math notranslate nohighlight">\(d\)</span>, la rama de 3 × 3 calcula en la posición <span class="math notranslate nohighlight">\(u\)</span> y el canal <span class="math notranslate nohighlight">\(j\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+(C_{3,d}H)_j(u)=b_j+\sum_c\sum_{r\in\{-1,0,1\}^2} W_{jcr}H_c(u+d r).
+\]</div>
+<p>Sea <span class="math notranslate nohighlight">\(P_b\)</span> el promedio adaptativo por canal en una rejilla de <span class="math notranslate nohighlight">\(b\times b\)</span>. Las cinco ramas aportan 16 canales cada una. La rama global promedia todo el mapa.</p>
+<div class="math notranslate nohighlight">
+\[
+R_d=\rho(C_{3,d}(H)),\quad d\in\{2,4,8\},\qquad
+G=U_{64}(\rho(C_1(P_1(H)))).
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Q=[\rho(C_1(H)),R_2,R_4,R_8,G],\qquad
+z=U_{256}\big(C_1^{32\to1}(\rho(C_1^{80\to32}(Q)))\big).
+\]</div>
+<p>La dilatación espacia las muestras sin reducir el mapa. El diseño supone que reconocer el rótulo requiere combinar su apariencia local con indicios a varias distancias. La rama global aporta el mismo resumen a todas las posiciones.</p>
+</section>
+<section id="pspnet-compacta-piramide-de-promedios-regionales">
+<h3>PSPNet compacta · pirámide de promedios regionales<a class="headerlink" href="#pspnet-compacta-piramide-de-promedios-regionales" title="Link to this heading">#</a></h3>
+<p>Si <span class="math notranslate nohighlight">\(\Omega^{(b)}_{ij}\)</span> es la ventana adaptativa de la celda <span class="math notranslate nohighlight">\((i,j)\)</span>, cada rama calcula</p>
+<div class="math notranslate nohighlight">
+\[
+(P_b H)_{cij}=\frac{1}{|\Omega^{(b)}_{ij}|}\sum_{u\in\Omega^{(b)}_{ij}} H_c(u),\qquad
+R_b=U_{64}(\rho(C_1^{64\to16}(P_b H))),\quad b\in\{1,2,3,6\}.
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Q=[H,R_1,R_2,R_3,R_6],\qquad
+z=U_{256}\big(C_1^{32\to1}(\rho(C_1^{128\to32}(Q)))\big).
+\]</div>
+<p>Los 64 canales locales y las cuatro ramas regionales de 16 canales forman la entrada de 128 canales a la cabeza. El diseño supone que la región que rodea al rótulo ayuda a interpretarlo. Si ocupa pocos píxeles, su señal puede diluirse en el promedio regional. La ruta directa de <span class="math notranslate nohighlight">\(H\)</span> conserva información local.</p>
+<p>Las cinco arquitecturas aprenden mediante la misma pérdida BCE–Dice y el mismo procedimiento de Adam. Las expresiones de ambos y su relación con los píxeles válidos se desarrollan a continuación.</p>
+</section>
+</section>
 <section id="de-un-pixel-rgb-a-un-mapa-de-caracteristicas">
 <h2>De un píxel RGB a un mapa de características<a class="headerlink" href="#de-un-pixel-rgb-a-un-mapa-de-caracteristicas" title="Link to this heading">#</a></h2>
 <p>La entrada tiene forma <span class="math notranslate nohighlight">\(3\times256\times256\)</span>. En cada posición <span class="math notranslate nohighlight">\((u,v)\)</span> el filtro <span class="math notranslate nohighlight">\(j\)</span> lee la misma vecindad de 3 × 3 en todos los canales. En la implementación de PyTorch, la operación llamada convolución es una correlación cruzada con pesos aprendidos:</p>
@@ -799,7 +879,7 @@ D=\mathrm{Dice}=\frac{2VP}{2VP+FP+FN}=\frac{2J}{1+J}.
 <section id="hardware-y-reproducibilidad">
 <h2>Hardware y reproducibilidad<a class="headerlink" href="#hardware-y-reproducibilidad" title="Link to this heading">#</a></h2>
 <p>FCN, SegNet y U-Net se entrenaron en CPU y T4 con determinismo habilitado en modo de advertencia. Sus tres corridas de semilla 11 y FCN con semilla 23 se ejecutaron en CPU. SegNet con semilla 23 pasó de CPU a T4 tras la primera época. Las demás corridas de estas arquitecturas usaron T4. DeepLab compacta y PSPNet compacta se entrenaron en A100-SXM4-80GB con caché de datos, TF32, selección de algoritmos cuDNN por rendimiento y determinismo desactivado. Estas diferencias limitan la atribución de los resultados exclusivamente a la arquitectura. En Resultados se mide la latencia de las cinco redes en la misma CPU.</p>
-<p>Las implementaciones de <a class="reference download internal" download="" href="_downloads/a2d7532fadebc8434b11e33819ae6ae7/modelos_base.py"><code class="xref download docutils literal notranslate"><span class="pre">FCN,</span> <span class="pre">SegNet</span> <span class="pre">y</span> <span class="pre">U-Net</span></code></a> y de <a class="reference download internal" download="" href="_downloads/4b7a2adf0368c4252ba31c4ee5d499d1/bases_v2.py"><code class="xref download docutils literal notranslate"><span class="pre">DeepLab</span> <span class="pre">y</span> <span class="pre">PSPNet</span> <span class="pre">compactas</span></code></a> definen las cinco arquitecturas. El <a class="reference download internal" download="" href="_downloads/06d687130ae53c03eddcce427f63bae0/Experimento_IMO_A100_optimizado.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">cuaderno</span> <span class="pre">A100</span></code></a> y su <a class="reference download internal" download="" href="_downloads/44449c43bf6a563124b4f08cb6879571/IMO_resultados_A100.zip"><code class="xref download docutils literal notranslate"><span class="pre">archivo</span> <span class="pre">de</span> <span class="pre">resultados</span></code></a> conservan configuraciones, pesos e historias. Los <a class="reference download internal" download="" href="_downloads/6cd5e0b94501b3c7c0647215a327c900/paneles_cierre.py"><code class="xref download docutils literal notranslate"><span class="pre">paneles</span> <span class="pre">de</span> <span class="pre">predicciones</span></code></a> se reconstruyen con los cinco checkpoints de semilla 11, las imágenes de test, la normalización de entrenamiento y las máscaras verificadas por SHA-256. El <a class="reference download internal" download="" href="_downloads/4cacb5699a4dece80e616da37ff00024/figuras_cinco.py"><code class="xref download docutils literal notranslate"><span class="pre">generador</span> <span class="pre">de</span> <span class="pre">diagramas</span> <span class="pre">y</span> <span class="pre">curvas</span></code></a> reúne las cinco arquitecturas.</p>
+<p>Las implementaciones de <a class="reference download internal" download="" href="_downloads/a2d7532fadebc8434b11e33819ae6ae7/modelos_base.py"><code class="xref download docutils literal notranslate"><span class="pre">FCN,</span> <span class="pre">SegNet</span> <span class="pre">y</span> <span class="pre">U-Net</span></code></a> y de <a class="reference download internal" download="" href="_downloads/4b7a2adf0368c4252ba31c4ee5d499d1/bases_v2.py"><code class="xref download docutils literal notranslate"><span class="pre">DeepLab</span> <span class="pre">y</span> <span class="pre">PSPNet</span> <span class="pre">compactas</span></code></a> definen las cinco arquitecturas. El <a class="reference download internal" download="" href="_downloads/06d687130ae53c03eddcce427f63bae0/Experimento_IMO_A100_optimizado.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">cuaderno</span> <span class="pre">A100</span></code></a> documenta las corridas de las dos redes compactas. El <a class="reference download internal" download="" href="_downloads/4c0ade5bf77f5d26312df8f540179ddc/IMO_cinco_redes.zip"><code class="xref download docutils literal notranslate"><span class="pre">ZIP</span> <span class="pre">de</span> <span class="pre">las</span> <span class="pre">cinco</span> <span class="pre">redes</span></code></a> reúne los pesos seleccionados, las historias y los resultados de test de las 25 corridas, incluidas las de FCN, SegNet y U-Net. Los <a class="reference download internal" download="" href="_downloads/6cd5e0b94501b3c7c0647215a327c900/paneles_cierre.py"><code class="xref download docutils literal notranslate"><span class="pre">paneles</span> <span class="pre">de</span> <span class="pre">predicciones</span></code></a> se reconstruyen con los cinco checkpoints de semilla 11, las imágenes de test, la normalización de entrenamiento y las máscaras verificadas por SHA-256. El <a class="reference download internal" download="" href="_downloads/4cacb5699a4dece80e616da37ff00024/figuras_cinco.py"><code class="xref download docutils literal notranslate"><span class="pre">generador</span> <span class="pre">de</span> <span class="pre">diagramas</span> <span class="pre">y</span> <span class="pre">curvas</span></code></a> reúne las cinco arquitecturas.</p>
 </section>
 </section>
 
@@ -876,6 +956,14 @@ D=\mathrm{Dice}=\frac{2VP}{2VP+FP+FN}=\frac{2J}{1+J}.
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#u-net">U-Net</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deeplab-compacta">DeepLab compacta</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pspnet-compacta">PSPNet compacta</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ecuaciones-de-las-cinco-arquitecturas">Ecuaciones de las cinco arquitecturas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fcn-prediccion-desde-el-mapa-grueso">FCN · predicción desde el mapa grueso</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#segnet-reconstruccion-con-indices-de-maximos">SegNet · reconstrucción con índices de máximos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#u-net-recuperacion-de-detalle-mediante-concatenacion">U-Net · recuperación de detalle mediante concatenación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deeplab-compacta-convolucion-dilatada-y-contexto-global">DeepLab compacta · convolución dilatada y contexto global</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pspnet-compacta-piramide-de-promedios-regionales">PSPNet compacta · pirámide de promedios regionales</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#de-un-pixel-rgb-a-un-mapa-de-caracteristicas">De un píxel RGB a un mapa de características</a><ul class="nav section-nav flex-column">

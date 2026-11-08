@@ -310,6 +310,7 @@
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-sistematica">Revisión sistemática</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flujo-de-seleccion-y-decisiones-de-los-revisores">Flujo de selección y decisiones de los revisores</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#del-corpus-a-la-eleccion-de-arquitecturas">Del corpus a la elección de arquitecturas</a></li>
 </ul>
 </li>
@@ -334,7 +335,15 @@
 <p>La revisión examina cómo se han medido las predicciones sobre rótulos y qué característica de cada arquitectura merece ponerse a prueba. El benchmark compara FCN, SegNet, U-Net, DeepLab compacta y PSPNet compacta sobre la misma tarea de segmentación binaria.</p>
 <section id="revision-sistematica">
 <h2>Revisión sistemática<a class="headerlink" href="#revision-sistematica" title="Link to this heading">#</a></h2>
-<p>La <a class="reference download internal" download="" href="_downloads/944fdd5b7166fa4d01d0496f90b70255/revision_literatura.xlsx"><code class="xref download docutils literal notranslate"><span class="pre">matriz</span> <span class="pre">de</span> <span class="pre">cribado</span> <span class="pre">y</span> <span class="pre">extracción</span></code></a> documenta la búsqueda en Web of Science, Scopus e IEEE Xplore. De 653 registros se eliminaron 120 duplicados. Se cribaron 533 títulos y resúmenes, se excluyeron 326 y se buscaron 207 textos completos. No se recuperaron 48; de los 159 evaluados se excluyeron 63. La síntesis retuvo 96. La hoja de lectura informa κ de Cohen de 0,760 con tres decisiones y 0,797 al agruparlas en «pasa» o «se excluye», sobre 50 registros. El cribado inicial fue asistido por IA; la muestra doble no equivale a una segunda lectura independiente de los 533 registros.</p>
+<section id="flujo-de-seleccion-y-decisiones-de-los-revisores">
+<h3>Flujo de selección y decisiones de los revisores<a class="headerlink" href="#flujo-de-seleccion-y-decisiones-de-los-revisores" title="Link to this heading">#</a></h3>
+<p>La <a class="reference download internal" download="" href="_downloads/944fdd5b7166fa4d01d0496f90b70255/revision_literatura.xlsx"><code class="xref download docutils literal notranslate"><span class="pre">matriz</span> <span class="pre">de</span> <span class="pre">cribado</span> <span class="pre">y</span> <span class="pre">extracción</span></code></a> conserva un identificador por registro. El diagrama tipo PRISMA sigue los totales por base de la hoja <em>busquedas</em> y los recuentos de <em>LEEME</em>. Cada rama lateral indica cuántos registros dejaron de avanzar en ese paso.</p>
+<p><img alt="Flujo PRISMA. De 653 registros identificados se eliminaron 120 duplicados. De 533 cribados se excluyeron 326. Se buscaron 207 textos, se recuperaron 159 y se incluyeron 96." src="_images/flujo_prisma.png" /></p>
+<p>En el cribado se excluyeron 19 registros sin aprendizaje profundo, 134 centrados solo en cajas o clasificación, 105 de otro dominio, 63 que no eran estudios primarios y 5 sobre OCR de documentos. De los 159 textos evaluados se excluyeron 28 por abordar solo cajas o clasificación, 15 por dominio ajeno, 2 por tipo de estudio, 13 por carecer de línea base de aprendizaje profundo y 5 por métricas no verificables.</p>
+<p><strong>Quién seleccionó los registros.</strong> La columna <em>revisor</em> de <em>cribado</em> atribuye la primera decisión sobre los 533 títulos y resúmenes a Claude, con cinco subagentes que aplicaron los criterios de cribado. Daniel Carbonó y Luis Perez figuran conjuntamente como segundo revisor de una muestra ciega de 50. La matriz no identifica por separado quién evaluó la elegibilidad de cada texto completo.</p>
+<p><strong>Cómo se resolvieron las diferencias.</strong> En la muestra hubo 47 coincidencias y tres desacuerdos entre «incluir», «dudoso» y «excluir». Los tres pasaron a búsqueda de texto completo. R282 se excluyó tras la lectura por faltar una línea base de aprendizaje profundo (E6). R295 se excluyó por dominio ajeno (E3). El texto de R041 no se recuperó, por lo que no llegó a evaluarse.</p>
+<p><strong>Acuerdo entre revisores.</strong> Al cruzar los 50 identificadores de <em>muestra_ciega</em> con <em>decision_tr</em> de <em>cribado</em>, el kappa de Cohen es 0,901 con tres categorías (47/50 coincidencias) y 0,960 al agrupar «incluir» y «dudoso» como «pasa» (49/50). La hoja <em>LEEME</em> consigna 0,760 y 0,797 respectivamente. Para que el cálculo sea reproducible, aquí se usan las decisiones individuales guardadas. La discrepancia del resumen queda documentada.</p>
+</section>
 <section id="del-corpus-a-la-eleccion-de-arquitecturas">
 <h3>Del corpus a la elección de arquitecturas<a class="headerlink" href="#del-corpus-a-la-eleccion-de-arquitecturas" title="Link to this heading">#</a></h3>
 <p>El resumen de la matriz clasifica 82 artículos como texto en escena y 14 como señales, rótulos o letreros. En el subconjunto de señales, la hoja de frecuencias cuenta seis comparaciones con Mask R-CNN, tres con DeepLab, dos con PSPNet y FCN y una con U-Net. Un estudio puede comparar varias redes. La frecuencia describe uso, no superioridad. En particular, EAST aparece en 40 estudios en total, pero solo en uno del subconjunto de señales. La frecuencia global responde principalmente a la composición del corpus.</p>
@@ -542,6 +551,7 @@ SeaFront dataset hazardous goods placards segmentation baseline
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-sistematica">Revisión sistemática</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flujo-de-seleccion-y-decisiones-de-los-revisores">Flujo de selección y decisiones de los revisores</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#del-corpus-a-la-eleccion-de-arquitecturas">Del corpus a la elección de arquitecturas</a></li>
 </ul>
 </li>
