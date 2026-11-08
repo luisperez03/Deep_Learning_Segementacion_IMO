@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -872,6 +872,12 @@ D=\mathrm{Dice}=\frac{2VP}{2VP+FP+FN}=\frac{2J}{1+J}.
 <tr class="row-odd"><td><p>Selección</p></td>
 <td><p>Mejor checkpoint de cada corrida por validación; una evaluación final en test con umbral 0,5</p></td>
 </tr>
+<tr class="row-even"><td><p>Dropout</p></td>
+<td><p>No se usa en ninguna red</p></td>
+</tr>
+<tr class="row-odd"><td><p>Regularización</p></td>
+<td><p>Ninguna explícita: sin decaimiento de pesos ni aumentos de datos; solo parada temprana</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -996,7 +1002,7 @@ D=\mathrm{Dice}=\frac{2VP}{2VP+FP+FN}=\frac{2J}{1+J}.
   <div class="footer-item">
     
 <p class="component-author">
-Por Luis Perez y Daniel Carbono
+Por Luis Perez y Daniel Carbonó
 </p>
 
   </div>

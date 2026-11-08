@@ -1,6 +1,6 @@
 # Segmentación binaria de rótulos de mercancías peligrosas: Entregable 1
 
-Libro del Entregable 1 de Deep Learning (Luis Perez y Daniel Carbono): EDA del corpus HAZMAT-13, revisión
+Libro del Entregable 1 de Deep Learning (Luis Perez y Daniel Carbonó): EDA del corpus HAZMAT-13, revisión
 sistemática de la literatura y benchmark de cinco redes de segmentación binaria (FCN, SegNet, U-Net, DeepLab
 compacta y PSPNet compacta) con 5 semillas cada una.
 

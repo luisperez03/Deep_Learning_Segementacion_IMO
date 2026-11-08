@@ -1,0 +1,8 @@
+format: jb-book
+root: index
+chapters:
+  - file: problema
+  - file: literatura
+  - file: eda
+  - file: implementacion
+  - file: resultados

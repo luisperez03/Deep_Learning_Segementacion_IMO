@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -324,7 +324,15 @@
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variacion-entre-semillas-y-equivalencia-practica">Variación entre semillas y equivalencia práctica</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-de-normalidad-y-contraste-no-parametrico">Supuesto de normalidad y contraste no paramétrico</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supuestos-de-los-contrastes">Supuestos de los contrastes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diferencias-relativas-y-umbral-para-modelos-avanzados">Diferencias relativas y umbral para modelos avanzados</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-convergencia-y-costo">Entrenamiento: convergencia y costo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generalizacion-validacion-frente-a-test">Generalización: validación frente a test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#equivalencia-sin-suponer-normalidad">Equivalencia sin suponer normalidad</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones-declaradas">Limitaciones declaradas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-para-la-siguiente-etapa">Decisión para la siguiente etapa</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discusion-critica">Discusión crítica</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alcance-y-limitaciones">Alcance y limitaciones</a></li>
 </ul>
             </nav>
@@ -968,10 +976,434 @@
 </div>
 <p>Un p TOST ajustado inferior a 0,05 respalda equivalencia dentro del margen. Los contrastes de superioridad frente a FCN del benchmark responden a si la diferencia media es distinta de cero. Los diez contrastes se detallan en <code class="docutils literal notranslate"><span class="pre">comparacion/equivalencia_y_dimensionamiento.csv</span></code> del ZIP.</p>
 </section>
+<section id="supuesto-de-normalidad-y-contraste-no-parametrico">
+<h2>Supuesto de normalidad y contraste no paramétrico<a class="headerlink" href="#supuesto-de-normalidad-y-contraste-no-parametrico" title="Link to this heading">#</a></h2>
+<p>El t pareado, el TOST y los intervalos pareados suponen que las diferencias de Dice entre dos redes, calculadas
+por grupo de similitud (n = 122, promedio de las cinco semillas), siguen una distribución normal. La prueba de
+Shapiro-Wilk contrasta esa hipótesis: un valor p pequeño indica que las diferencias no son normales.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Par</p></th>
+<th class="head"><p>Δ Dice</p></th>
+<th class="head"><p>Shapiro W</p></th>
+<th class="head"><p>p Shapiro</p></th>
+<th class="head"><p>p t pareado</p></th>
+<th class="head"><p>p Wilcoxon</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>FCN − SegNet</p></td>
+<td><p>0,0144</p></td>
+<td><p>0,811</p></td>
+<td><p>3,3 × 10⁻¹¹</p></td>
+<td><p>0,0055</p></td>
+<td><p>0,0007</p></td>
+</tr>
+<tr class="row-odd"><td><p>FCN − U-Net</p></td>
+<td><p>0,0079</p></td>
+<td><p>0,843</p></td>
+<td><p>4,5 × 10⁻¹⁰</p></td>
+<td><p>0,0382</p></td>
+<td><p>0,4595</p></td>
+</tr>
+<tr class="row-even"><td><p>FCN − DeepLab</p></td>
+<td><p>−0,0081</p></td>
+<td><p>0,773</p></td>
+<td><p>1,8 × 10⁻¹²</p></td>
+<td><p>0,1183</p></td>
+<td><p>0,0081</p></td>
+</tr>
+<tr class="row-odd"><td><p>FCN − PSPNet</p></td>
+<td><p>−0,0136</p></td>
+<td><p>0,712</p></td>
+<td><p>3,6 × 10⁻¹⁴</p></td>
+<td><p>0,0181</p></td>
+<td><p>0,0030</p></td>
+</tr>
+<tr class="row-even"><td><p>SegNet − U-Net</p></td>
+<td><p>−0,0065</p></td>
+<td><p>0,717</p></td>
+<td><p>5,0 × 10⁻¹⁴</p></td>
+<td><p>0,1526</p></td>
+<td><p>0,0001</p></td>
+</tr>
+<tr class="row-odd"><td><p>SegNet − DeepLab</p></td>
+<td><p>−0,0226</p></td>
+<td><p>0,786</p></td>
+<td><p>4,7 × 10⁻¹²</p></td>
+<td><p>&lt; 10⁻⁵</p></td>
+<td><p>&lt; 10⁻⁸</p></td>
+</tr>
+<tr class="row-even"><td><p>SegNet − PSPNet</p></td>
+<td><p>−0,0280</p></td>
+<td><p>0,704</p></td>
+<td><p>2,3 × 10⁻¹⁴</p></td>
+<td><p>&lt; 10⁻⁶</p></td>
+<td><p>&lt; 10⁻¹⁰</p></td>
+</tr>
+<tr class="row-odd"><td><p>U-Net − DeepLab</p></td>
+<td><p>−0,0161</p></td>
+<td><p>0,682</p></td>
+<td><p>6,5 × 10⁻¹⁵</p></td>
+<td><p>0,0033</p></td>
+<td><p>0,0031</p></td>
+</tr>
+<tr class="row-even"><td><p>U-Net − PSPNet</p></td>
+<td><p>−0,0216</p></td>
+<td><p>0,619</p></td>
+<td><p>2,6 × 10⁻¹⁶</p></td>
+<td><p>0,0009</p></td>
+<td><p>0,0035</p></td>
+</tr>
+<tr class="row-odd"><td><p>DeepLab − PSPNet</p></td>
+<td><p>−0,0055</p></td>
+<td><p>0,807</p></td>
+<td><p>2,3 × 10⁻¹¹</p></td>
+<td><p>0,0931</p></td>
+<td><p>0,1094</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Lectura.</strong> Ninguna de las diez diferencias es normal (p de Shapiro menor que 10⁻⁹ en todos los pares): la
+distribución tiene colas pesadas, porque unos pocos grupos difíciles concentran las diferencias grandes. Por eso
+el contraste principal es la prueba de rangos con signo de Wilcoxon, que no supone normalidad y compara si una
+red supera a la otra en la mayoría de los grupos. El t pareado se conserva como referencia.</p>
+<p><strong>Qué cambia respecto del t pareado.</strong></p>
+<ul class="simple">
+<li><p><strong>FCN frente a DeepLab:</strong> el t no detecta diferencia (p = 0,118), pero Wilcoxon sí (p = 0,008). DeepLab
+supera a FCN en la mayoría de los grupos, aunque la diferencia media es pequeña (0,008).</p></li>
+<li><p><strong>FCN frente a U-Net:</strong> el t da p = 0,038, pero Wilcoxon no (p = 0,46). La ventaja media de FCN se debe a
+pocos grupos, y no hay diferencia demostrable.</p></li>
+<li><p><strong>PSPNet frente a FCN:</strong> las dos pruebas coinciden en que PSPNet gana (Wilcoxon p = 0,003).</p></li>
+</ul>
+<p>Para los contrastes previstos contra FCN, la corrección de Holm se aplica sobre los valores p de Wilcoxon. El
+TOST de equivalencia (±0,02) también supone normalidad. Su veredicto debe leerse con cautela, o confirmarse con
+un intervalo bootstrap de la diferencia por grupos, que no depende de esa forma.</p>
+<p><em>Cálculo:</em> <code class="docutils literal notranslate"><span class="pre">verificar_benchmark.py</span></code> sobre <code class="docutils literal notranslate"><span class="pre">test/*/por_imagen.csv</span></code> del archivo de las cinco redes.</p>
+</section>
+<section id="supuestos-de-los-contrastes">
+<h2>Supuestos de los contrastes<a class="headerlink" href="#supuestos-de-los-contrastes" title="Link to this heading">#</a></h2>
+<p><strong>Homogeneidad de varianzas.</strong> La prueba de Levene, centrada en la mediana, compara la dispersión del Dice por
+grupo entre las cinco redes: W = 0,686, p = 0,602. No hay evidencia de que la variabilidad difiera entre redes
+(desviaciones estándar entre 0,120 en PSPNet y 0,156 en U-Net), así que Friedman y las comparaciones pareadas no
+están afectadas por varianzas desiguales.</p>
+<p><strong>Independencia.</strong> La unidad es el grupo de similitud, y cada grupo está completo en una sola partición. Las
+cinco redes se evalúan sobre los mismos 122 grupos, por eso las comparaciones son pareadas. Las semillas comparten
+el mismo test, así que no son réplicas independientes del experimento; se promedian dentro de cada grupo.</p>
+<p><strong>Normalidad.</strong> La figura muestra los Q-Q de las diferencias contra FCN. Las colas se separan de la recta: unos
+pocos grupos difíciles concentran las diferencias grandes. Por eso se usa Wilcoxon (sección de normalidad).</p>
+<figure class="align-default" id="id1">
+<a class="reference internal image-reference" href="_images/qq_diferencias.png"><img alt="_images/qq_diferencias.png" src="_images/qq_diferencias.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figura 2 </span><span class="caption-text">Q-Q normal de las diferencias de Dice por grupo entre FCN y cada red.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="diferencias-relativas-y-umbral-para-modelos-avanzados">
+<h2>Diferencias relativas y umbral para modelos avanzados<a class="headerlink" href="#diferencias-relativas-y-umbral-para-modelos-avanzados" title="Link to this heading">#</a></h2>
+<p>La diferencia relativa expresa la diferencia de Dice como porcentaje del Dice de la segunda red del par. La
+diferencia mínima detectable (DMD) es la menor diferencia que cinco semillas pueden detectar con α = 0,05 y
+potencia de 0,80, dada la desviación estándar pareada en validación:
+DMD = (z₀,₉₇₅ + z₀,₈₀) · σ̂d / √5.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Par</p></th>
+<th class="head"><p>Δ Dice</p></th>
+<th class="head"><p>Δ relativa</p></th>
+<th class="head"><p>DMD (5 semillas)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>FCN − SegNet</p></td>
+<td><p>0,0144</p></td>
+<td><p>1,72 %</p></td>
+<td><p>0,0645</p></td>
+</tr>
+<tr class="row-odd"><td><p>FCN − U-Net</p></td>
+<td><p>0,0079</p></td>
+<td><p>0,94 %</p></td>
+<td><p>0,0323</p></td>
+</tr>
+<tr class="row-even"><td><p>FCN − DeepLab</p></td>
+<td><p>−0,0081</p></td>
+<td><p>−0,94 %</p></td>
+<td><p>0,0247</p></td>
+</tr>
+<tr class="row-odd"><td><p>FCN − PSPNet</p></td>
+<td><p>−0,0136</p></td>
+<td><p>−1,57 %</p></td>
+<td><p>0,0157</p></td>
+</tr>
+<tr class="row-even"><td><p>SegNet − U-Net</p></td>
+<td><p>−0,0065</p></td>
+<td><p>−0,77 %</p></td>
+<td><p>0,0416</p></td>
+</tr>
+<tr class="row-odd"><td><p>SegNet − DeepLab</p></td>
+<td><p>−0,0226</p></td>
+<td><p>−2,62 %</p></td>
+<td><p>0,0554</p></td>
+</tr>
+<tr class="row-even"><td><p>SegNet − PSPNet</p></td>
+<td><p>−0,0280</p></td>
+<td><p>−3,24 %</p></td>
+<td><p>0,0589</p></td>
+</tr>
+<tr class="row-odd"><td><p>U-Net − DeepLab</p></td>
+<td><p>−0,0161</p></td>
+<td><p>−1,87 %</p></td>
+<td><p>0,0259</p></td>
+</tr>
+<tr class="row-even"><td><p>U-Net − PSPNet</p></td>
+<td><p>−0,0216</p></td>
+<td><p>−2,49 %</p></td>
+<td><p>0,0254</p></td>
+</tr>
+<tr class="row-odd"><td><p>DeepLab − PSPNet</p></td>
+<td><p>−0,0055</p></td>
+<td><p>−0,63 %</p></td>
+<td><p>0,0098</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Las cinco redes quedan dentro de un rango de 3,2 % relativo. En siete de los diez pares, la DMD supera el
+margen de relevancia δ = 0,02, es decir, cinco semillas no bastan para detectar una diferencia de ese tamaño
+con potencia de 0,80. Solo entre FCN y PSPNet, y entre DeepLab y PSPNet, la DMD queda por debajo de δ.</p>
+<p><strong>Umbral para los modelos avanzados.</strong> El mejor modelo base es PSPNet compacta (Dice de test por grupos de
+0,8667). Entre las dos mejores redes, la DMD (0,0098) es menor que δ, así que el margen lo fija δ. Un modelo
+avanzado del Entregable 2 tendrá que superar <strong>0,887 de Dice</strong> (0,8667 + 0,02) con el mismo protocolo para
+considerarse una mejora práctica, y su comparación contra PSPNet deberá ser significativa con la prueba
+pareada no paramétrica.</p>
+</section>
+<section id="entrenamiento-convergencia-y-costo">
+<h2>Entrenamiento: convergencia y costo<a class="headerlink" href="#entrenamiento-convergencia-y-costo" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Red</p></th>
+<th class="head"><p>Dispositivo</p></th>
+<th class="head"><p>Minutos por corrida</p></th>
+<th class="head"><p>Corridas en el tope de 30 épocas</p></th>
+<th class="head"><p>Mejor época (media)</p></th>
+<th class="head"><p>Mejor época entre las 3 últimas</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>FCN</p></td>
+<td><p>CPU y T4</p></td>
+<td><p>22,7</p></td>
+<td><p>2 de 5</p></td>
+<td><p>22,2</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>SegNet</p></td>
+<td><p>CPU y T4</p></td>
+<td><p>22,9</p></td>
+<td><p>2 de 5</p></td>
+<td><p>20,2</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>U-Net</p></td>
+<td><p>CPU y T4</p></td>
+<td><p>27,8</p></td>
+<td><p>2 de 5</p></td>
+<td><p>22,2</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>DeepLab compacta</p></td>
+<td><p>GPU A100</p></td>
+<td><p>2,9</p></td>
+<td><p>2 de 5</p></td>
+<td><p>20,4</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>PSPNet compacta</p></td>
+<td><p>GPU A100</p></td>
+<td><p>3,0</p></td>
+<td><p>2 de 5</p></td>
+<td><p>22,2</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Diez de las 25 corridas llegan al tope de 30 épocas sin que actúe la parada temprana (paciencia 5). En seis de
+esas diez, el mejor Dice de validación se alcanzó antes de las tres últimas épocas, lo que indica una meseta.
+En las otras cuatro (dos de U-Net, una de DeepLab y una de PSPNet), la validación seguía mejorando al cortar,
+así que esas redes podrían estar algo subentrenadas. Esto favorecería, si acaso, a FCN y SegNet.</p>
+<p><strong>Hardware.</strong> FCN, SegNet y U-Net se entrenaron en CPU y en GPU T4 (las tres corridas de semilla 11 y FCN con semilla 23 en CPU; las demás en T4), con determinismo en modo de advertencia, y su test se evaluó en T4. DeepLab y PSPNet se
+entrenaron en una GPU A100 sin determinismo estricto. Los tiempos de entrenamiento mezclan dispositivos y no son comparables entre los
+dos grupos, y por eso el costo se compara con la latencia de inferencia, que se midió en la misma CPU. La
+diferencia de hardware y de determinismo es una amenaza a la validez interna del contraste entre los dos grupos
+de redes: parte de la ventaja de PSPNet y DeepLab podría deberse al entorno y no a la arquitectura.</p>
+</section>
+<section id="generalizacion-validacion-frente-a-test">
+<h2>Generalización: validación frente a test<a class="headerlink" href="#generalizacion-validacion-frente-a-test" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Red</p></th>
+<th class="head"><p>Dice de validación (mejor época)</p></th>
+<th class="head"><p>Dice de test</p></th>
+<th class="head"><p>Test − validación</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>FCN</p></td>
+<td><p>0,8330</p></td>
+<td><p>0,8531</p></td>
+<td><p>+0,0201</p></td>
+</tr>
+<tr class="row-odd"><td><p>SegNet</p></td>
+<td><p>0,8193</p></td>
+<td><p>0,8386</p></td>
+<td><p>+0,0193</p></td>
+</tr>
+<tr class="row-even"><td><p>U-Net</p></td>
+<td><p>0,8272</p></td>
+<td><p>0,8451</p></td>
+<td><p>+0,0179</p></td>
+</tr>
+<tr class="row-odd"><td><p>DeepLab compacta</p></td>
+<td><p>0,8479</p></td>
+<td><p>0,8612</p></td>
+<td><p>+0,0133</p></td>
+</tr>
+<tr class="row-even"><td><p>PSPNet compacta</p></td>
+<td><p>0,8442</p></td>
+<td><p>0,8667</p></td>
+<td><p>+0,0225</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Las cinco redes rinden mejor en test que en validación, por entre 1,3 y 2,3 puntos. No hay señal de sobreajuste
+a la validación. La diferencia apunta a que el test es algo más fácil, coherente con el EDA, que encontró
+diferencias de distribución entre particiones (fracción de etiqueta, KS p = 0,007). Como el desplazamiento es
+parecido en las cinco redes, no altera el orden entre ellas. Los historiales no registran el Dice de
+entrenamiento, así que la brecha entre entrenamiento y validación no se puede cuantificar.</p>
+</section>
+<section id="equivalencia-sin-suponer-normalidad">
+<h2>Equivalencia sin suponer normalidad<a class="headerlink" href="#equivalencia-sin-suponer-normalidad" title="Link to this heading">#</a></h2>
+<p>Como las diferencias por grupo no son normales, el TOST se confirma con un intervalo bootstrap del 90 % de la
+diferencia media (10.000 remuestreos de los 122 grupos). Dos redes son equivalentes si ese intervalo cae
+completo dentro de ±0,02.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Par</p></th>
+<th class="head"><p>IC 90 % bootstrap</p></th>
+<th class="head"><p>Equivalentes (±0,02)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>FCN − U-Net</p></td>
+<td><p>[0,0017; 0,0142]</p></td>
+<td><p>sí</p></td>
+</tr>
+<tr class="row-odd"><td><p>FCN − DeepLab</p></td>
+<td><p>[−0,0167; 0,0001]</p></td>
+<td><p>sí</p></td>
+</tr>
+<tr class="row-even"><td><p>SegNet − U-Net</p></td>
+<td><p>[−0,0136; 0,0010]</p></td>
+<td><p>sí</p></td>
+</tr>
+<tr class="row-odd"><td><p>DeepLab − PSPNet</p></td>
+<td><p>[−0,0109; −0,0004]</p></td>
+<td><p>sí</p></td>
+</tr>
+<tr class="row-even"><td><p>FCN − SegNet</p></td>
+<td><p>[0,0061; 0,0229]</p></td>
+<td><p>no</p></td>
+</tr>
+<tr class="row-odd"><td><p>FCN − PSPNet</p></td>
+<td><p>[−0,0231; −0,0048]</p></td>
+<td><p>no</p></td>
+</tr>
+<tr class="row-even"><td><p>SegNet − DeepLab</p></td>
+<td><p>[−0,0304; −0,0150]</p></td>
+<td><p>no</p></td>
+</tr>
+<tr class="row-odd"><td><p>SegNet − PSPNet</p></td>
+<td><p>[−0,0369; −0,0200]</p></td>
+<td><p>no</p></td>
+</tr>
+<tr class="row-even"><td><p>U-Net − DeepLab</p></td>
+<td><p>[−0,0252; −0,0079]</p></td>
+<td><p>no</p></td>
+</tr>
+<tr class="row-odd"><td><p>U-Net − PSPNet</p></td>
+<td><p>[−0,0322; −0,0121]</p></td>
+<td><p>no</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>El bootstrap da los mismos veredictos que el TOST paramétrico, así que la conclusión de equivalencia no depende
+del supuesto de normalidad.</p>
+</section>
+<section id="limitaciones-declaradas">
+<h2>Limitaciones declaradas<a class="headerlink" href="#limitaciones-declaradas" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Semillas.</strong> Se ejecutaron 5 por red. El dimensionamiento pide entre 4 y 52 según el par (8 para FCN contra
+DeepLab y 14 para FCN contra U-Net), y en siete pares la DMD supera δ.</p></li>
+<li><p><strong>Hiperparámetros.</strong> No se hizo búsqueda: las cinco redes usan la misma tasa fija de 0,001 y la misma
+paciencia. Esto puede subestimar a las redes que se beneficiarían de otra tasa.</p></li>
+<li><p><strong>Validación cruzada.</strong> No hay validación cruzada repetida. Las semillas comparten un mismo test, así que la
+varianza entre semillas no incluye la variación por partición.</p></li>
+<li><p><strong>Hardware.</strong> Hay dos entornos distintos, descritos arriba.</p></li>
+<li><p><strong>Cota de referencia.</strong> No hay segunda anotación ni desempeño humano, así que el techo alcanzable del Dice es
+desconocido.</p></li>
+<li><p><strong>Aumentos de datos.</strong> No se usaron, para que la comparación aislara la arquitectura. Los resultados no
+dicen cómo cambiaría el orden con aumentos.</p></li>
+</ul>
+<p><em>Cálculo:</em> <code class="docutils literal notranslate"><span class="pre">complementos_resultados.py</span></code> sobre el archivo de las cinco redes (semilla del bootstrap 20261108).</p>
+</section>
 <section id="decision-para-la-siguiente-etapa">
 <h2>Decisión para la siguiente etapa<a class="headerlink" href="#decision-para-la-siguiente-etapa" title="Link to this heading">#</a></h2>
-<p>DeepLab compacta fue la mejor en validación (0,8479), el criterio definido para seleccionar un modelo. PSPNet compacta alcanzó el mayor Dice en el test interno (0,8667). Su diferencia media frente a FCN fue +0,0136, con IC 95 % de +0,0032 a +0,0250 y p ajustado de 0,0361. El intervalo abarca el margen práctico de +0,02. Hay evidencia de una ventaja media sobre FCN en estos grupos, y persiste incertidumbre sobre si alcanza la magnitud que se había fijado. Para DeepLab, el IC de la diferencia incluye cero.</p>
+<p>DeepLab compacta fue la mejor en validación (0,8479), el criterio definido para seleccionar un modelo. PSPNet compacta alcanzó el mayor Dice en el test interno (0,8667). Como las diferencias por grupo no son normales, la prueba principal es Wilcoxon: PSPNet supera a FCN (p = 0,003) y DeepLab también (p = 0,008), aunque la diferencia media de DeepLab es pequeña (0,008). La diferencia media de PSPNet frente a FCN fue +0,0136, con IC 95 % de +0,0032 a +0,0250; el intervalo abarca el margen práctico de +0,02, así que persiste incertidumbre sobre si la ventaja alcanza la magnitud fijada.</p>
 <p>El desenfoque produjo la mayor pérdida de Dice entre las perturbaciones ensayadas. En las 24 imágenes de la auditoría, PSPNet perdió 0,2330 y FCN perdió 0,3132. Esto orienta la recolección de fotografías con rótulos distantes y bordes poco definidos. Para el próximo estudio, FCN sirve como comparador, DeepLab como candidato elegido por validación y PSPNet como candidato cuya ventaja se debe comprobar en nuevos grupos.</p>
+</section>
+<section id="discusion-critica">
+<h2>Discusión crítica<a class="headerlink" href="#discusion-critica" title="Link to this heading">#</a></h2>
+<p><strong>¿Qué modelo base funciona mejor y por qué?</strong> PSPNet compacta obtiene el mayor Dice de test por grupos (0,8667)
+y supera a FCN de forma significativa con la prueba de Wilcoxon (p = 0,003); DeepLab compacta también la supera
+(p = 0,008). Las dos comparten el sesgo inductivo que las otras tres no tienen: contexto agregado a varias
+escalas (rejillas regionales en PSPNet, convoluciones dilatadas en DeepLab). Para un rótulo que ocupa en mediana
+el 3 % de la imagen y se parece en color al fondo, saber qué hay alrededor ayuda más que recuperar el borde fino.
+Las redes que reconstruyen el detalle (U-Net, SegNet) no mejoran a FCN: U-Net es equivalente (bootstrap IC 90 %
+[0,0017; 0,0142]) y SegNet queda por debajo.</p>
+<p><strong>¿Es por capacidad?</strong> No. PSPNet compacta tiene 80.401 parámetros, menos que U-Net (118.273) y DeepLab
+(104.481). El orden no sigue al tamaño, sino al mecanismo de contexto. Sí hay una confusión que no se puede
+descartar: DeepLab y PSPNet se entrenaron en GPU A100 y las otras tres en CPU y T4, así que parte de la ventaja podría
+deberse al entorno.</p>
+<p><strong>¿Cuál generaliza mejor?</strong> Ninguna muestra sobreajuste a la validación: las cinco rinden más en test que en
+validación. DeepLab tiene la menor diferencia entre las dos (+0,013) y PSPNet la mayor (+0,023). La estabilidad
+entre semillas favorece a FCN (DE 0,006) y PSPNet (0,008) frente a SegNet (0,035), que es la más sensible a la
+inicialización.</p>
+<p><strong>¿Cuánto margen queda frente a la literatura?</strong> En los estudios de señales revisados, el modelo propuesto
+supera al mejor modelo base por 2 a 10 puntos de IoU, siempre en una sola corrida. Aquí las cinco redes base
+quedan dentro de 2,8 puntos de Dice (3,2 % relativo) entre la mejor y la peor. Un modelo avanzado del
+Entregable 2 tendrá que superar 0,887 de Dice para contar como una mejora práctica.</p>
+<p><strong>¿Son significativas las diferencias?</strong> Friedman rechaza que las cinco redes sean iguales (Q = 67,51,
+p &lt; 10⁻¹³). Por pares, con Wilcoxon, PSPNet y DeepLab superan a FCN, U-Net y SegNet. FCN y U-Net son
+equivalentes dentro de ±0,02, y también lo son DeepLab y PSPNet.</p>
+<p><strong>Amenazas a la validez.</strong></p>
+<ul class="simple">
+<li><p><em>Internas:</em> dos entornos de hardware, sin búsqueda de hiperparámetros, 5 semillas (menos de lo que pide el
+dimensionamiento), 4 corridas cortadas mientras la validación seguía mejorando, y un test consultado durante
+el desarrollo.</p></li>
+<li><p><em>Externas:</em> un solo corpus (HAZMAT-13) con fotografías de pocas fuentes y concentración por carpeta; los
+resultados no se extienden a video, a otras condiciones de captura ni a rótulos fuera de estas 13 categorías.</p></li>
+<li><p><em>De construcción:</em> el Dice binario no distingue si el rótulo segmentado es de la categoría correcta, y sin
+segunda anotación el ruido de etiqueta es desconocido. Las versiones compactas no son las arquitecturas
+originales, así que el resultado compara mecanismos, no los modelos publicados.</p></li>
+</ul>
+<p><strong>Recomendaciones para el Entregable 2.</strong> Correr todas las redes en el mismo entorno y con al menos 8 semillas;
+partir de PSPNet como referencia; probar arquitecturas que combinen contexto multiescala con recuperación de
+bordes (por ejemplo DeepLabv3+); y añadir aumentos de datos y una búsqueda de hiperparámetros con el mismo
+presupuesto para todas.</p>
 </section>
 <section id="alcance-y-limitaciones">
 <h2>Alcance y limitaciones<a class="headerlink" href="#alcance-y-limitaciones" title="Link to this heading">#</a></h2>
@@ -1073,7 +1505,15 @@
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variacion-entre-semillas-y-equivalencia-practica">Variación entre semillas y equivalencia práctica</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-de-normalidad-y-contraste-no-parametrico">Supuesto de normalidad y contraste no paramétrico</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supuestos-de-los-contrastes">Supuestos de los contrastes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diferencias-relativas-y-umbral-para-modelos-avanzados">Diferencias relativas y umbral para modelos avanzados</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-convergencia-y-costo">Entrenamiento: convergencia y costo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generalizacion-validacion-frente-a-test">Generalización: validación frente a test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#equivalencia-sin-suponer-normalidad">Equivalencia sin suponer normalidad</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones-declaradas">Limitaciones declaradas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-para-la-siguiente-etapa">Decisión para la siguiente etapa</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discusion-critica">Discusión crítica</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alcance-y-limitaciones">Alcance y limitaciones</a></li>
 </ul>
   </nav></div>
@@ -1089,7 +1529,7 @@
   <div class="footer-item">
     
 <p class="component-author">
-Por Luis Perez y Daniel Carbono
+Por Luis Perez y Daniel Carbonó
 </p>
 
   </div>

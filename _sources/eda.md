@@ -12,6 +12,17 @@ La tabla cuenta fotografías entre los **1.583 pares con máscara utilizable**. 
 
 La columna **Total con máscara** reúne entrenamiento (1.015 fotos), validación (218), test (218) y cuarentena (132). Para reconstruir los conteos se cruzó el campo `classes` de `resultados/inicio_voc/inventario.csv` con el manifiesto por ID de imagen y se cotejó cada total con `distribucion_clases.csv`. El fondo es la categoría negativa por píxel y queda fuera de las 13 categorías de rótulos.
 
+
+```{admonition} Decisión, impacto y riesgos
+:class: note
+
+- *Decisión de preprocesamiento:* binarizar las 13 categorías en una sola clase "etiqueta"; la partición
+  conserva la presencia de todas las categorías en train, validación y test.
+- *Impacto en la arquitectura:* salida de un canal con sigmoide; no hace falta una cabeza multiclase.
+- *Riesgos:* las categorías poco frecuentes (Tóxico, 81 imágenes) pesan poco en el entrenamiento. Un error
+  sistemático en ellas quedaría diluido en el Dice global, y por eso se reporta el Dice por categoría.
+```
+
 ## Cobertura, geometría y objetivo
 
 ### Las 13 categorías que aparecen en las máscaras originales
@@ -56,6 +67,18 @@ Las imágenes con área positiva pequeña son especialmente sensibles a la reduc
 
 Los encuadres tienen distintas proporciones. Se preservó la relación de aspecto con redimensionado y relleno centrado. Imagen y máscara comparten la geometría; la imagen usa interpolación bilineal y la máscara, vecino más cercano. Los píxeles de relleno se excluyen del entrenamiento y la evaluación.
 
+
+```{admonition} Decisión, impacto y riesgos
+:class: note
+
+- *Decisión de preprocesamiento:* redimensionado a 256 × 256 conservando la proporción, con relleno excluido de
+  la pérdida y de la métrica; la máscara se interpola por vecino más cercano.
+- *Impacto en la arquitectura:* con 4,38 % de píxeles de etiqueta, la pérdida combina BCE y Dice, y la métrica
+  primaria es el Dice de la etiqueta, no la exactitud.
+- *Riesgos:* reducir la imagen borra rótulos pequeños (el área mínima por imagen baja a 16 píxeles). Las redes
+  que reducen mucho el mapa (FCN, 4 veces) quedan en desventaja en esos casos.
+```
+
 ## Calidad de las anotaciones
 
 ![Fotografía, máscara y revisión de cobertura del caso image_1461](figuras/revision_1461.png)
@@ -63,6 +86,19 @@ Los encuadres tienen distintas proporciones. Se preservó la relación de aspect
 En la cesta se distingue un rótulo aparentemente omitido mientras dos rótulos inferiores sí tienen máscara. Esta clase de error persiste al binarizar. Se puso el grupo en cuarentena. En `image_0025` la discrepancia parece semántica y en `image_1251` la mano oculta parte de las etiquetas. Los paneles se eligieron para diagnóstico, por lo que su frecuencia de problemas no estima una tasa de error poblacional.
 
 De los 1.685 JPG, 102 carecen de máscara utilizable. Los 102 figuran sin asignación en las particiones heredadas y con origen XML desconocido. Entre los 1.583 pares con máscara solo uno tiene origen desconocido. La ausencia se concentra en un subconjunto identificable; estos metadatos no bastan para explicar la causa. Se excluyeron de la supervisión, sin convertirlos en ejemplos de fondo. En 69 pares no coinciden los conjuntos de clases XML y máscara. También falta el XML de `image_1018`. La cuarentena incluye alertas de cobertura inferior al 5 % en cajas y se propaga dentro del grupo. No existe una segunda anotación independiente para estimar acuerdo o un techo de Dice humano.
+
+
+```{admonition} Decisión, impacto y riesgos
+:class: note
+
+- *Decisión de preprocesamiento:* las 102 imágenes sin máscara se excluyen, sin convertirlas en fondo; los
+  grupos con omisiones evidentes van a cuarentena.
+- *Impacto en la arquitectura:* ninguno directo. El ruido de etiqueta pone un techo al Dice alcanzable por
+  cualquier red.
+- *Riesgos:* no hay tasa de ruido estimada ni segunda anotación; un rótulo omitido en test penaliza a la red
+  que sí lo detecta. La ausencia de máscaras se concentra por carpeta (χ², p < 10⁻³⁰⁰), así que no es MCAR, y
+  excluirlas puede sesgar la muestra hacia el estilo de ciertas carpetas.
+```
 
 ## Similitud, procedencia y fugas
 
@@ -72,9 +108,46 @@ De 1.418.770 pares examinados, 748 cumplieron simultáneamente distancias dHash 
 
 En la validación heredada, 33 imágenes provenían de la carpeta XML `00_javad` y 151 de `00_misaq`. Una carpeta puede compartir fondos con otra. Esta concentración y la falta de identificadores certificados de cámara o escena limitan la interpretación del origen. Un grupo visual aproxima dependencia sin garantizarla.
 
+
+```{admonition} Decisión, impacto y riesgos
+:class: note
+
+- *Decisión de preprocesamiento:* agrupar por componentes conexas de dHash y aHash y asignar cada grupo
+  completo a una sola partición; el grupo es la unidad de evaluación.
+- *Impacto en la arquitectura:* ninguno en el diseño de las redes. Las comparaciones y los intervalos se
+  calculan sobre grupos (n = 122), no sobre imágenes.
+- *Riesgos (fuga):* rotaciones y recortes pueden escapar a los hashes, y la concentración por carpeta puede
+  compartir fondos entre particiones. Una fuga residual inflaría el Dice de test de todas las redes por igual.
+```
+
 ```{include} eda_calculos.inc
 ```
 
 
 ```{include} diagnostico_v2.inc
 ```
+
+## Cierre de los análisis de regiones y particiones
+
+```{admonition} Decisión, impacto y riesgos
+:class: note
+
+- *Decisión de preprocesamiento:* normalizar con medias y desviaciones de los píxeles válidos de train solamente.
+- *Impacto en la arquitectura:* la mediana de una región por imagen y áreas de 219 a 2.944 píxeles (percentiles
+  10 y 90) piden campos receptivos de varias escalas, que es justo lo que añaden DeepLab y PSPNet.
+- *Riesgos:* las intensidades de etiqueta y fondo se solapan, así que un atajo por color no basta. Una red que
+  dependa del contexto puede fallar con rótulos fuera de su entorno habitual.
+```
+
+
+```{admonition} Decisión, impacto y riesgos
+:class: note
+
+- *Decisión de preprocesamiento:* mantener la partición congelada y reportar su diferencia de distribución, en
+  vez de rehacerla después de ver los resultados.
+- *Impacto en la arquitectura:* ninguno. El test resultó algo más fácil (todas las redes rinden entre 1,3 y 2,3
+  puntos más que en validación), pero el desplazamiento es parecido en las cinco y no cambia el orden.
+- *Riesgos:* el clasificador adversarial no distingue train de test (AUC 0,506), pero la fracción de etiqueta sí
+  difiere (KS p = 0,007). El Dice absoluto de test puede sobrestimar el desempeño fuera de este corpus.
+```
+

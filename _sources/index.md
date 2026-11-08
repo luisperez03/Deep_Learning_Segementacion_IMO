@@ -2,7 +2,7 @@
 
 **Deep Learning · Entregable 1 · Noviembre de 2026**
 
-**Autores:** Luis Perez y Daniel Carbono
+**Autores:** Luis Perez y Daniel Carbonó
 
 {ref}`Ver cuántas imágenes hay de cada clase <conteo-por-categoria>`.
 

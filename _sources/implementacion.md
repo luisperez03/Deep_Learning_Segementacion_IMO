@@ -42,6 +42,8 @@ Una convolución calcula $h_j=\mathrm{ReLU}(b_j+\sum_i W_{ji}*x_i)$. Para un nú
 | Presupuesto | Máximo 30 épocas, paciencia 5 sin mejora en Dice de validación por grupo |
 | Semillas comunes | 11, 23, 37, 53 y 71 |
 | Selección | Mejor checkpoint de cada corrida por validación; una evaluación final en test con umbral 0,5 |
+| Dropout | No se usa en ninguna red |
+| Regularización | Ninguna explícita: sin decaimiento de pesos ni aumentos de datos; solo parada temprana |
 
 La pérdida Dice suave es $1-(2\sum py+\epsilon)/(\sum p+\sum y+\epsilon)$, donde $p$ es la salida sigmoide, $y$ la máscara binaria y $\epsilon=10^{-6}$. El orden de imágenes depende de la semilla y la época. Se fijaron los generadores de Python, NumPy y PyTorch, también en CUDA. La configuración fue fija en las 25 corridas, sin búsqueda de hiperparámetros.
 

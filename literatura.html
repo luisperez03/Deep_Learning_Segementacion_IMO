@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -61,6 +61,8 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'literatura';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Índice" href="genindex.html" />
@@ -309,16 +311,25 @@
             </div>
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-sistematica">Revisión sistemática</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flujo-de-seleccion-y-decisiones-de-los-revisores">Flujo de selección y decisiones de los revisores</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#del-corpus-a-la-eleccion-de-arquitecturas">Del corpus a la elección de arquitecturas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estrategia-de-busqueda">3.1 Estrategia de búsqueda</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identificacion-de-los-modelos-base">3.2 Identificación de los modelos base</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-por-modelo-base">3.3 Análisis por modelo base</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fcn-fully-convolutional-network-long-shelhamer-y-darrell-2015">FCN, Fully Convolutional Network (Long, Shelhamer y Darrell, 2015)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#segnet-badrinarayanan-kendall-y-cipolla-2017">SegNet (Badrinarayanan, Kendall y Cipolla, 2017)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#u-net-ronneberger-fischer-y-brox-2015">U-Net (Ronneberger, Fischer y Brox, 2015)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deeplab-chen-papandreou-kokkinos-murphy-y-yuille-2018">DeepLab (Chen, Papandreou, Kokkinos, Murphy y Yuille, 2018)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pspnet-pyramid-scene-parsing-network-zhao-shi-qi-wang-y-jia-2017">PSPNet, Pyramid Scene Parsing Network (Zhao, Shi, Qi, Wang y Jia, 2017)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fuentes-de-aplicacion-y-criterios-de-lectura">Fuentes de aplicación y criterios de lectura</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-critica-y-brecha">3.4 Comparación crítica y brecha</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#antecedentes-del-dominio-fuera-de-la-busqueda-sistematica">3.5 Antecedentes del dominio fuera de la búsqueda sistemática</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fuentes-de-aplicacion-y-criterios-de-lectura">Fuentes de aplicación y criterios de lectura</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#busqueda-exploratoria-complementaria">Búsqueda exploratoria complementaria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#articulos-que-fundamentan-las-cinco-arquitecturas">Artículos que fundamentan las cinco arquitecturas</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#articulos-que-fundamentan-las-cinco-arquitecturas">Artículos que fundamentan las cinco arquitecturas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anexo-a-tabla-de-sintesis-estudios-de-senales-rotulos-y-letreros-n-14">Anexo A. Tabla de síntesis: estudios de señales, rótulos y letreros (n = 14)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referencias">Referencias</a></li>
 </ul>
             </nav>
         </div>
@@ -333,53 +344,509 @@
   <section class="tex2jax_ignore mathjax_ignore" id="estado-del-arte-y-eleccion-de-modelos">
 <h1>Estado del arte y elección de modelos<a class="headerlink" href="#estado-del-arte-y-eleccion-de-modelos" title="Link to this heading">#</a></h1>
 <p>La revisión examina cómo se han medido las predicciones sobre rótulos y qué característica de cada arquitectura merece ponerse a prueba. El benchmark compara FCN, SegNet, U-Net, DeepLab compacta y PSPNet compacta sobre la misma tarea de segmentación binaria.</p>
-<section id="revision-sistematica">
-<h2>Revisión sistemática<a class="headerlink" href="#revision-sistematica" title="Link to this heading">#</a></h2>
-<section id="flujo-de-seleccion-y-decisiones-de-los-revisores">
-<h3>Flujo de selección y decisiones de los revisores<a class="headerlink" href="#flujo-de-seleccion-y-decisiones-de-los-revisores" title="Link to this heading">#</a></h3>
-<p>La <a class="reference download internal" download="" href="_downloads/944fdd5b7166fa4d01d0496f90b70255/revision_literatura.xlsx"><code class="xref download docutils literal notranslate"><span class="pre">matriz</span> <span class="pre">de</span> <span class="pre">cribado</span> <span class="pre">y</span> <span class="pre">extracción</span></code></a> conserva un identificador por registro. El diagrama tipo PRISMA sigue los totales por base de la hoja <em>busquedas</em> y los recuentos de <em>LEEME</em>. Cada rama lateral indica cuántos registros dejaron de avanzar en ese paso.</p>
-<p><img alt="Flujo PRISMA. De 653 registros identificados se eliminaron 120 duplicados. De 533 cribados se excluyeron 326. Se buscaron 207 textos, se recuperaron 159 y se incluyeron 96." src="_images/flujo_prisma.png" /></p>
-<p>En el cribado se excluyeron 19 registros sin aprendizaje profundo, 134 centrados solo en cajas o clasificación, 105 de otro dominio, 63 que no eran estudios primarios y 5 sobre OCR de documentos. De los 159 textos evaluados se excluyeron 28 por abordar solo cajas o clasificación, 15 por dominio ajeno, 2 por tipo de estudio, 13 por carecer de línea base de aprendizaje profundo y 5 por métricas no verificables.</p>
-<p><strong>Quién seleccionó los registros.</strong> La columna <em>revisor</em> de <em>cribado</em> atribuye la primera decisión sobre los 533 títulos y resúmenes a Claude, con cinco subagentes que aplicaron los criterios de cribado. Daniel Carbonó y Luis Perez figuran conjuntamente como segundo revisor de una muestra ciega de 50. La matriz no identifica por separado quién evaluó la elegibilidad de cada texto completo.</p>
-<p><strong>Cómo se resolvieron las diferencias.</strong> En la muestra hubo 47 coincidencias y tres desacuerdos entre «incluir», «dudoso» y «excluir». Los tres pasaron a búsqueda de texto completo. R282 se excluyó tras la lectura por faltar una línea base de aprendizaje profundo (E6). R295 se excluyó por dominio ajeno (E3). El texto de R041 no se recuperó, por lo que no llegó a evaluarse.</p>
-<p><strong>Acuerdo entre revisores.</strong> Al cruzar los 50 identificadores de <em>muestra_ciega</em> con <em>decision_tr</em> de <em>cribado</em>, el kappa de Cohen es 0,901 con tres categorías (47/50 coincidencias) y 0,960 al agrupar «incluir» y «dudoso» como «pasa» (49/50). La hoja <em>LEEME</em> consigna 0,760 y 0,797 respectivamente. Para que el cálculo sea reproducible, aquí se usan las decisiones individuales guardadas. La discrepancia del resumen queda documentada.</p>
-</section>
-<section id="del-corpus-a-la-eleccion-de-arquitecturas">
-<h3>Del corpus a la elección de arquitecturas<a class="headerlink" href="#del-corpus-a-la-eleccion-de-arquitecturas" title="Link to this heading">#</a></h3>
-<p>El resumen de la matriz clasifica 82 artículos como texto en escena y 14 como señales, rótulos o letreros. En el subconjunto de señales, la hoja de frecuencias cuenta seis comparaciones con Mask R-CNN, tres con DeepLab, dos con PSPNet y FCN y una con U-Net. Un estudio puede comparar varias redes. La frecuencia describe uso, no superioridad. En particular, EAST aparece en 40 estudios en total, pero solo en uno del subconjunto de señales. La frecuencia global responde principalmente a la composición del corpus.</p>
+<section id="estrategia-de-busqueda">
+<h2>3.1 Estrategia de búsqueda<a class="headerlink" href="#estrategia-de-busqueda" title="Link to this heading">#</a></h2>
+<p><strong>Bases, fecha y periodo.</strong> Web of Science Core Collection, Scopus e IEEE Xplore, consultadas el 8 de noviembre
+de 2026 con acceso institucional (Universidad del Norte; la exportación de Scopus se hizo por la Universidad del
+Magdalena). Periodo de publicación: 2018 a 2026. arXiv se revisó solo para detectar tendencias y no entra en
+los conteos.</p>
+<p><strong>Cadenas.</strong> Se usaron dos cadenas. La A busca el problema: rótulos de peligro y señales de seguridad. La B busca
+los problemas vecinos de donde salen los modelos base: señales de tránsito, letreros y texto en escena.</p>
+<p><em>Cadena A, Web of Science:</em> TS=((«hazard* material*» OR hazmat OR «dangerous goods» OR placard* OR
+«warning sign*» OR «safety sign*» OR «warning label*») AND («semantic segmentation» OR «image segmentation»
+OR «pixel-wise» OR «instance segmentation») AND («deep learning» OR «convolutional neural network*» OR CNN OR
+«U-Net» OR «fully convolutional»)) AND PY=(2018-2026)</p>
+<p><em>Cadena A, Scopus:</em> TITLE-ABS-KEY((«hazard* material*» OR hazmat OR «dangerous goods» OR placard* OR
+«warning sign*» OR «safety sign*» OR «warning label*») AND («semantic segmentation» OR «image segmentation»
+OR «pixel-wise» OR «instance segmentation») AND («deep learning» OR «convolutional neural network*» OR cnn OR
+«U-Net» OR «fully convolutional»)) AND PUBYEAR &gt; 2017</p>
+<p><em>Cadena A, IEEE Xplore (todos los metadatos):</em> («hazardous material» OR hazmat OR «dangerous goods» OR placard
+OR «warning sign» OR «safety sign» OR «warning label») AND (segmentation) AND («deep learning» OR
+«convolutional neural network» OR «U-Net» OR «fully convolutional»), con filtro 2018-2026.</p>
+<p><em>Cadena B, Web of Science:</em> TS=((«traffic sign*» OR «road sign*» OR signboard* OR «scene text») AND
+(«semantic segmentation» OR «image segmentation» OR «pixel-wise») AND («deep learning» OR «convolutional neural
+network*» OR «U-Net» OR «fully convolutional» OR SegNet)) AND PY=(2018-2026)</p>
+<p><em>Cadena B, Scopus:</em> TITLE-ABS-KEY((«traffic sign*» OR «road sign*» OR signboard* OR «scene text») AND
+(«semantic segmentation» OR «image segmentation» OR «pixel-wise») AND («deep learning» OR «convolutional neural
+network*» OR «U-Net» OR «fully convolutional» OR segnet)) AND PUBYEAR &gt; 2017</p>
+<p><em>Cadena B, IEEE Xplore (todos los metadatos):</em> («traffic sign» OR «road sign» OR signboard OR «scene text») AND
+(«semantic segmentation» OR «image segmentation» OR «pixel-wise») AND («deep learning» OR «convolutional neural
+network» OR «U-Net» OR «fully convolutional» OR SegNet), con filtro 2018-2026.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>Registro de la síntesis</p></th>
-<th class="head"><p>Resultado extraído</p></th>
-<th class="head"><p>Qué permite comparar</p></th>
+<tr class="row-odd"><th class="head"><p>Base</p></th>
+<th class="head"><p>Cadena A</p></th>
+<th class="head"><p>Cadena B</p></th>
+<th class="head"><p>Unión exportada</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>R455, Zhong et al. (2019), CTSD</p></td>
-<td><p>IoU 77,17 % en todas las escalas</p></td>
-<td><p>Motiva estudiar el tamaño del objeto; CTSD no es el test de HAZMAT-13.</p></td>
+<tr class="row-even"><td><p>Web of Science</p></td>
+<td><p>6</p></td>
+<td><p>66</p></td>
+<td><p>72</p></td>
 </tr>
-<tr class="row-odd"><td><p>R522, Yang et al. (2018), percepción de intersecciones</p></td>
-<td><p>mIoU 67,09 % en 11 clases de navegación</p></td>
-<td><p>El contexto a varias escalas es pertinente, pero ese promedio no equivale al Dice del rótulo.</p></td>
+<tr class="row-odd"><td><p>Scopus</p></td>
+<td><p>36</p></td>
+<td><p>331</p></td>
+<td><p>367</p></td>
 </tr>
-<tr class="row-even"><td><p>R330, Qian et al. (2021), TT-100K-HHU</p></td>
-<td><p>mask mAP 0,644 con aumento de datos</p></td>
-<td><p>La evaluación exige identificar instancias. No sirve como techo del Dice binario.</p></td>
+<tr class="row-even"><td><p>IEEE Xplore</p></td>
+<td><p>9</p></td>
+<td><p>206</p></td>
+<td><p>214</p></td>
 </tr>
-<tr class="row-odd"><td><p>R070, Tan et al. (2025), placas eléctricas</p></td>
-<td><p>Reconocimiento de muestras inclinadas: 94,3 %</p></td>
-<td><p>La cercanía del objeto no hace comparable una tasa de reconocimiento con el solapamiento de máscaras.</p></td>
+<tr class="row-odd"><td><p><strong>Total</strong></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p><strong>653</strong></p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Las cinco redes comparten un diseño de codificador de 16/32/64 canales. FCN, U-Net y SegNet comparan mecanismos de reconstrucción espacial. DeepLab compacta contrasta un mapa grueso con ramas de convolución dilatada y contexto global (<a class="reference external" href="https://arxiv.org/abs/1706.05587">Chen et al., DeepLabv3</a>). PSPNet compacta agrega promedios regionales a cuatro escalas (<a class="reference external" href="https://arxiv.org/abs/1612.01105">Zhao et al., PSPNet</a>). Son adaptaciones locales; sus cifras no representan las implementaciones originales. Mask R-CNN queda como antecedente de segmentación por instancias: entrenarla con cajas, asignaciones y pérdidas por instancia cambiaría la comparación solicitada.</p>
-<p>La brecha que aborda el experimento es específica: delimitar el rótulo en HAZMAT-13 con grupos separados y comparar redes bajo un presupuesto fijo. Ninguno de los valores ilustrados se puede usar directamente como umbral de superioridad. Las métricas, las particiones y las unidades evaluadas son diferentes. La hoja «calidad» registra por estudio protocolo, fuga, repeticiones y análisis estadístico; «extraccion» conserva motivos de exclusión y los datos que faltan.</p>
+<p>La cadena A casi no devuelve estudios del problema: ninguno segmenta rótulos de mercancías peligrosas. La
+segmentación de estos rótulos no tiene literatura propia de deep learning indexada en estas bases, y por eso
+los modelos base se extraen de los problemas vecinos.</p>
+<p><strong>Criterios de inclusión.</strong> (1) Usa una red neuronal profunda. (2) Predice una máscara por píxel, o la
+segmentación es un paso explícito del método. (3) El objeto es un rótulo, placa, señal, letrero o texto en
+escena. (4) Compara contra al menos un modelo de deep learning. (5) Reporta métricas numéricas verificables.</p>
+<p><strong>Criterios de exclusión.</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Código</p></th>
+<th class="head"><p>Motivo</p></th>
+<th class="head"><p>Etapa</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>E1</p></td>
+<td><p>No usa deep learning</p></td>
+<td><p>cribado y texto completo</p></td>
+</tr>
+<tr class="row-odd"><td><p>E2</p></td>
+<td><p>Solo cajas o clasificación de la imagen, sin salida por píxel</p></td>
+<td><p>cribado y texto completo</p></td>
+</tr>
+<tr class="row-even"><td><p>E3</p></td>
+<td><p>Dominio ajeno a rótulos, señales o texto en escena</p></td>
+<td><p>cribado y texto completo</p></td>
+</tr>
+<tr class="row-odd"><td><p>E4</p></td>
+<td><p>No es estudio primario (revisión, editorial, tesis)</p></td>
+<td><p>cribado y texto completo</p></td>
+</tr>
+<tr class="row-even"><td><p>E5</p></td>
+<td><p>OCR de documentos escaneados</p></td>
+<td><p>cribado y texto completo</p></td>
+</tr>
+<tr class="row-odd"><td><p>E6</p></td>
+<td><p>No compara contra ningún modelo de deep learning</p></td>
+<td><p>texto completo</p></td>
+</tr>
+<tr class="row-even"><td><p>E7</p></td>
+<td><p>Métricas no verificables (sin valores numéricos)</p></td>
+<td><p>texto completo</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Quién seleccionó.</strong> El cribado por título y resumen y la extracción en texto completo tuvieron una primera
+pasada asistida por IA, que aplicó los criterios escritos. El segundo revisor fueron los dos autores, por
+consenso, sobre una muestra ciega de 50 registros estratificada por decisión (semilla 20261108). La kappa de
+Cohen mide el acuerdo entre revisores descontando el que se daría por azar: fue 0,760 en tres clases (incluir,
+dudoso, excluir) y 0,797 en la decisión que mueve el registro (pasa o se excluye), un acuerdo «sustancial» en
+la escala de Landis y Koch. La regla de desacuerdo se fijó antes de resolverlos: el registro pasa a texto
+completo. Hubo 7 desacuerdos, y los 4 registros excluidos entre ellos pasaron a texto completo.</p>
+<p><strong>Diagrama de flujo (PRISMA 2020).</strong></p>
+<figure class="align-default" id="id1">
+<a class="reference internal image-reference" href="_images/flujo_prisma.png"><img alt="_images/flujo_prisma.png" src="_images/flujo_prisma.png" style="width: 82%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figura 1 </span><span class="caption-text">Flujo de la revisión (PRISMA 2020).</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Calidad de los estudios incluidos.</strong> Cada estudio se puntuó de 0 a 2 en cuatro criterios (n = 96):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Criterio</p></th>
+<th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Protocolo reproducible (datos, partición, hiperparámetros)</p></td>
+<td><p>4</p></td>
+<td><p>53</p></td>
+<td><p>39</p></td>
+</tr>
+<tr class="row-odd"><td><p>Riesgo de fuga (2 = partición oficial o por escena; 0 = no se dice)</p></td>
+<td><p>16</p></td>
+<td><p>5</p></td>
+<td><p>75</p></td>
+</tr>
+<tr class="row-even"><td><p>Repeticiones (2 = cinco o más corridas; 0 = una)</p></td>
+<td><p>96</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Inferencia (2 = prueba o intervalo; 1 = solo desviación estándar)</p></td>
+<td><p>94</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Ningún estudio reporta más de una corrida y solo dos acompañan sus comparaciones de alguna medida de
+incertidumbre. Las diferencias entre modelos que se reportan en este campo son, por tanto, diferencias de una
+sola corrida, sin intervalo.</p>
+</section>
+<section id="identificacion-de-los-modelos-base">
+<h2>3.2 Identificación de los modelos base<a class="headerlink" href="#identificacion-de-los-modelos-base" title="Link to this heading">#</a></h2>
+<p><strong>Tabla de frecuencia.</strong> Número de estudios incluidos que usan cada modelo de deep learning como comparación.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Modelo</p></th>
+<th class="head"><p>Todos (96)</p></th>
+<th class="head"><p>Texto en escena (82)</p></th>
+<th class="head"><p>Señales, rótulos y letreros (14)</p></th>
+<th class="head"><p>Segmentación semántica de señales (8)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>EAST</p></td>
+<td><p>40</p></td>
+<td><p>39</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>SegLink</p></td>
+<td><p>29</p></td>
+<td><p>29</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>TextSnake</p></td>
+<td><p>26</p></td>
+<td><p>26</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>DBNet</p></td>
+<td><p>24</p></td>
+<td><p>24</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>PSENet</p></td>
+<td><p>22</p></td>
+<td><p>22</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Mask R-CNN</p></td>
+<td><p>11</p></td>
+<td><p>5</p></td>
+<td><p>6</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>DeepLab (v3, v3+, LargeFOV, ASPP)</p></td>
+<td><p>6</p></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-odd"><td><p>PSPNet</p></td>
+<td><p>5</p></td>
+<td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>U-Net</p></td>
+<td><p>5</p></td>
+<td><p>4</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>FCN</p></td>
+<td><p>3</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>ERFNet</p></td>
+<td><p>3</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>ENet</p></td>
+<td><p>2</p></td>
+<td><p>0</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>SegNet</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Lectura.</strong> Los modelos más frecuentes en la muestra completa (EAST, SegLink, TextSnake, DBNet, PSENet) son
+detectores especializados de texto. Se evalúan con F-measure sobre cajas o polígonos, no con solapamiento de
+máscara, y no son modelos básicos de segmentación. Mask R-CNN es frecuente en señales, pero segmenta instancias
+en dos etapas y es el de mayor complejidad. El subgrupo pertinente para segmentar en binario un objeto gráfico es
+el de segmentación semántica de señales: 8 estudios (R072, R128, R212, R379, R429, R447, R455 y R522).</p>
+<p><strong>Regla de selección.</strong> Se ordenan los modelos del subgrupo por frecuencia y, a igual frecuencia, por menor
+complejidad. Se exige además que no sean redundantes (cada uno con un sesgo inductivo distinto) y que se puedan
+entrenar con el mismo pipeline. Con esa regla salen <strong>DeepLab (3), FCN (2) y PSPNet (2)</strong>: FCN es la base sin
+decodificador, DeepLab añade contexto con convoluciones dilatadas y PSPNet añade contexto por agrupamiento
+piramidal. ENet y ERFNet (2 cada una) empatan en frecuencia, pero son variantes ligeras de
+codificador-decodificador orientadas a velocidad y no aportan un mecanismo distinto para este problema.</p>
+<p><strong>Modelos evaluados: cinco.</strong> El benchmark evalúa además <strong>SegNet y U-Net</strong>, los dos diseños clásicos de
+codificador-decodificador, para separar el efecto del contexto multiescala (DeepLab, PSPNet) del efecto de
+reconstruir el detalle espacial (SegNet, U-Net). El enunciado pide tres modelos base. Los tres que respalda la
+frecuencia son FCN, DeepLab y PSPNet; SegNet (0 estudios en el subgrupo) y U-Net (1) se incluyen como
+comparación complementaria y se registra como desviación del procedimiento.</p>
+<p><strong>Equivalencia con los modelos clásicos.</strong> Las cinco redes terminan en una convolución 1 × 1 que calcula, en cada
+píxel, una combinación lineal de su vector de rasgos z:</p>
+<div class="math notranslate nohighlight">
+\[\text{logit} = w^\top z + b\]</div>
+<p>Con la sigmoide y la entropía cruzada, esa cabeza es exactamente una regresión logística por píxel. Con pérdida
+de bisagra sería una SVM lineal. Si el objetivo fuera continuo (por ejemplo, la fracción de rótulo en una
+ventana) y se usara la pérdida insensible a ε, sería una SVR lineal. Las cinco redes son, entonces, un modelo
+lineal clásico aplicado sobre rasgos aprendidos. Lo que las distingue es cómo construyen esos rasgos a
+resolución completa, y eso es lo que el benchmark compara.</p>
+</section>
+<section id="analisis-por-modelo-base">
+<h2>3.3 Análisis por modelo base<a class="headerlink" href="#analisis-por-modelo-base" title="Link to this heading">#</a></h2>
+<p><strong>Notación común.</strong> La entrada es una imagen x de H × W × 3 y la salida, una probabilidad por píxel <span class="math notranslate nohighlight">\(p_i\)</span> de que
+el píxel pertenezca al rótulo. Una capa convolucional con núcleo <span class="math notranslate nohighlight">\(k \times k\)</span>, <span class="math notranslate nohighlight">\(C_i\)</span> canales de entrada y <span class="math notranslate nohighlight">\(C_o\)</span> de salida
+calcula <span class="math notranslate nohighlight">\(h = \mathrm{ReLU}(W * x + b)\)</span> y tiene <span class="math notranslate nohighlight">\((k^2 C_i + 1)C_o\)</span> parámetros. Su costo en un mapa de <span class="math notranslate nohighlight">\(H \times W\)</span> es del orden de
+<span class="math notranslate nohighlight">\(H W k^2 C_i C_o\)</span>. Las cinco redes se entrenan con la misma pérdida, que promedia la entropía cruzada binaria
+(error píxel a píxel) y la pérdida Dice (solapamiento de las máscaras, que da peso a un rótulo que ocupa poca
+superficie):</p>
+<div class="math notranslate nohighlight">
+\[L = \tfrac12\Big(-\tfrac1n\sum_i\big[y_i\log p_i + (1-y_i)\log(1-p_i)\big] + 1 - \frac{2\sum_i p_i y_i + \varepsilon}{\sum_i (p_i + y_i) + \varepsilon}\Big)\]</div>
+<p><strong>Ficha comparativa.</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>FCN</p></th>
+<th class="head"><p>SegNet</p></th>
+<th class="head"><p>U-Net</p></th>
+<th class="head"><p>DeepLab</p></th>
+<th class="head"><p>PSPNet</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Referencia</p></td>
+<td><p>Long et al. (2015)</p></td>
+<td><p>Badrinarayanan et al. (2017)</p></td>
+<td><p>Ronneberger et al. (2015)</p></td>
+<td><p>Chen et al. (2018)</p></td>
+<td><p>Zhao et al. (2017)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cómo recupera la resolución</p></td>
+<td><p>interpolación del mapa grueso</p></td>
+<td><p>max-unpooling con índices</p></td>
+<td><p>concatenación con el codificador</p></td>
+<td><p>dilatación, sin reducir tanto</p></td>
+<td><p>pirámide de agrupamiento + interpolación</p></td>
+</tr>
+<tr class="row-even"><td><p>Contexto global</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+<td><p>sí (ASPP)</p></td>
+<td><p>sí (pirámide)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Parámetros del original</p></td>
+<td><p>~134 M (VGG-16)</p></td>
+<td><p>~29,5 M</p></td>
+<td><p>~31 M</p></td>
+<td><p>~44 M (ResNet-101)</p></td>
+<td><p>backbone ResNet-101 + módulo piramidal</p></td>
+</tr>
+<tr class="row-even"><td><p>Parámetros de la versión compacta</p></td>
+<td><p>72.145</p></td>
+<td><p>85.761</p></td>
+<td><p>118.273</p></td>
+<td><p>104.481</p></td>
+<td><p>80.401</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resultado del artículo original</p></td>
+<td><p>VOC 2012 test: 62,2 mIoU</p></td>
+<td><p>CamVid: 60,1 mIoU</p></td>
+<td><p>ISBI 2015 PhC-U373: 0,920 IoU</p></td>
+<td><p>VOC 2012 test: 79,7 mIoU</p></td>
+<td><p>VOC 2012 test: 82,6 mIoU (85,4 con COCO)</p></td>
+</tr>
+<tr class="row-even"><td><p>Dispersión reportada</p></td>
+<td><p>ninguna</p></td>
+<td><p>ninguna</p></td>
+<td><p>ninguna</p></td>
+<td><p>ninguna</p></td>
+<td><p>ninguna</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Ningún artículo original reporta dispersión entre corridas. Sus cifras usan otros datasets, otras clases y
+backbones preentrenados, así que no son comparables con las de este trabajo; sirven para ubicar cada diseño.</p>
+<section id="fcn-fully-convolutional-network-long-shelhamer-y-darrell-2015">
+<h3>FCN, Fully Convolutional Network (Long, Shelhamer y Darrell, 2015)<a class="headerlink" href="#fcn-fully-convolutional-network-long-shelhamer-y-darrell-2015" title="Link to this heading">#</a></h3>
+<p><strong>Arquitectura.</strong> Un codificador convolucional cuyo mapa final, reducido varias veces, se lleva a la resolución
+de entrada por interpolación. El original (VGG-16) convierte las capas densas en convoluciones y fusiona las
+predicciones de las etapas reducidas 32, 16 y 8 veces (FCN-8s):</p>
+<div class="math notranslate nohighlight">
+\[s = \mathrm{Up}_{\times 8}\big(s_8 + \mathrm{Up}_{\times 2}(s_{16} + \mathrm{Up}_{\times 2}(s_{32}))\big)\]</div>
+<p>La versión compacta tiene 7 capas convolucionales, un mapa de 64 × 64, una cabeza 1 × 1 y una interpolación
+bilineal sin pesos.</p>
+<p><strong>Supuestos.</strong> Invariancia a la traslación y localidad, como toda red convolucional, y además que la máscara se
+puede reconstruir interpolando un mapa grueso, sin parámetros que recuperen los bordes.</p>
+<p><strong>Datos y métricas del original.</strong> PASCAL VOC 2011-2012, NYUDv2 y SIFT Flow; mIoU; unos 175 ms por imagen en
+inferencia.</p>
+<p><strong>Fortalezas.</strong> Es el diseño más simple y barato y sirve como línea base mínima: cualquier ganancia de los demás
+se mide contra él.</p>
+<p><strong>Limitaciones.</strong> Bordes suavizados y objetos pequeños perdidos: un rótulo de 16 píxeles de lado ocupa unas
+4 × 4 celdas en el mapa de 64 × 64.</p>
+</section>
+<section id="segnet-badrinarayanan-kendall-y-cipolla-2017">
+<h3>SegNet (Badrinarayanan, Kendall y Cipolla, 2017)<a class="headerlink" href="#segnet-badrinarayanan-kendall-y-cipolla-2017" title="Link to this heading">#</a></h3>
+<p><strong>Arquitectura.</strong> Codificador tipo VGG y decodificador simétrico. Cada max-pooling guarda la posición del
+máximo, y el decodificador «desempaqueta» el mapa poniendo cada valor en esa posición y ceros en el resto antes
+de convolucionar:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}u_{ij} = \begin{cases} v_{\lfloor i/2\rfloor,\lfloor j/2\rfloor} &amp; \text{si } (i,j) \text{ fue el argmax de su ventana} \\ 0 &amp; \text{en otro caso}\end{cases}\end{split}\]</div>
+<p><strong>Supuestos.</strong> Que la posición del máximo de cada ventana basta para restituir la geometría de los bordes.</p>
+<p><strong>Datos y métricas del original.</strong> CamVid y SUN RGB-D; exactitud global, exactitud media por clase y mIoU.</p>
+<p><strong>Fortalezas.</strong> Decodificador aprendido con poca memoria: solo guarda índices, no mapas completos. Bueno para
+inferencia con pocos recursos.</p>
+<p><strong>Limitaciones.</strong> El mapa desempaquetado es disperso (en cada etapa, tres de cada cuatro valores son cero) y la
+textura fina del codificador no llega al decodificador.</p>
+</section>
+<section id="u-net-ronneberger-fischer-y-brox-2015">
+<h3>U-Net (Ronneberger, Fischer y Brox, 2015)<a class="headerlink" href="#u-net-ronneberger-fischer-y-brox-2015" title="Link to this heading">#</a></h3>
+<p><strong>Arquitectura.</strong> Codificador y decodificador simétricos. En cada etapa, el decodificador sube el mapa y lo
+concatena con el del codificador a la misma resolución:</p>
+<div class="math notranslate nohighlight">
+\[d^{(l)} = \mathrm{Conv}\big([\,\mathrm{Up}(d^{(l+1)}) \,\Vert\, e^{(l)}\,]\big)\]</div>
+<p><strong>Supuestos.</strong> Que los rasgos de baja escala del codificador (bordes, esquinas) sirven directamente para la
+máscara final. Es el sesgo más débil de los cinco: la red aprende cuánto usar de cada escala.</p>
+<p><strong>Datos y métricas del original.</strong> ISBI 2012 (membranas neuronales, warping error) e ISBI 2015 (seguimiento de
+células, IoU de 0,920 en PhC-U373 y de 0,776 en DIC-HeLa), con unas pocas decenas de imágenes de entrenamiento.</p>
+<p><strong>Fortalezas.</strong> Bordes nítidos y buen desempeño con pocos datos, que es nuestro caso.</p>
+<p><strong>Limitaciones.</strong> Más memoria de activaciones, porque guarda los mapas del codificador, y es la versión compacta
+con más parámetros. Sin módulo de contexto, su campo receptivo es limitado.</p>
+</section>
+<section id="deeplab-chen-papandreou-kokkinos-murphy-y-yuille-2018">
+<h3>DeepLab (Chen, Papandreou, Kokkinos, Murphy y Yuille, 2018)<a class="headerlink" href="#deeplab-chen-papandreou-kokkinos-murphy-y-yuille-2018" title="Link to this heading">#</a></h3>
+<p><strong>Arquitectura.</strong> Reemplaza parte de la reducción por convoluciones dilatadas, que muestrean la entrada con
+huecos de tasa r y amplían el campo receptivo sin perder resolución ni añadir parámetros:</p>
+<div class="math notranslate nohighlight">
+\[y[i] = \sum_k x[i + r\,k]\; w[k]\]</div>
+<p>El módulo ASPP aplica varias tasas en paralelo y concatena las ramas. La versión compacta usa una rama 1 × 1,
+tres ramas 3 × 3 con dilataciones 2, 4 y 8 y una rama de promedio global, cada una de 16 canales; la cabeza
+fusiona los 80 canales y amplía los logits por interpolación bilineal.</p>
+<p><strong>Supuestos.</strong> Que el contexto a varias escalas ayuda a decidir si un píxel es rótulo, y que mantener la
+resolución del mapa es mejor que reconstruirla después.</p>
+<p><strong>Datos y métricas del original.</strong> PASCAL VOC 2012, PASCAL-Context, PASCAL-Person-Part y Cityscapes; mIoU. El
+original usa además un CRF denso como posproceso, que la versión compacta no tiene.</p>
+<p><strong>Fortalezas.</strong> Es el modelo base más frecuente en el subgrupo de señales (3 de 8 estudios). Capta el contexto
+sin un decodificador pesado.</p>
+<p><strong>Limitaciones.</strong> Con dilataciones grandes en mapas pequeños aparecen artefactos de rejilla, y el costo crece
+porque las capas operan a mayor resolución.</p>
+</section>
+<section id="pspnet-pyramid-scene-parsing-network-zhao-shi-qi-wang-y-jia-2017">
+<h3>PSPNet, Pyramid Scene Parsing Network (Zhao, Shi, Qi, Wang y Jia, 2017)<a class="headerlink" href="#pspnet-pyramid-scene-parsing-network-zhao-shi-qi-wang-y-jia-2017" title="Link to this heading">#</a></h3>
+<p><strong>Arquitectura.</strong> Sobre el mapa profundo, un módulo de agrupamiento piramidal promedia en rejillas de 1 × 1,
+2 × 2, 3 × 3 y 6 × 6, proyecta cada rama, la amplía y la concatena con el mapa original:</p>
+<div class="math notranslate nohighlight">
+\[f = \big[\, x \,\Vert\, \mathrm{Up}(P_1(x)) \,\Vert\, \mathrm{Up}(P_2(x)) \,\Vert\, \mathrm{Up}(P_3(x)) \,\Vert\, \mathrm{Up}(P_6(x)) \,\big]\]</div>
+<p>En la versión compacta, las cuatro ramas suman 64 canales, que se concatenan con los 64 del mapa profundo
+antes de la cabeza.</p>
+<p><strong>Supuestos.</strong> Que la información de la escena completa y de sus regiones (dónde suele estar un rótulo, qué lo
+rodea) reduce las confusiones locales.</p>
+<p><strong>Datos y métricas del original.</strong> ImageNet scene parsing (ADE20K), PASCAL VOC 2012 y Cityscapes (80,2 mIoU);
+mIoU y exactitud de píxel.</p>
+<p><strong>Fortalezas.</strong> Contexto global barato: el módulo piramidal añade pocos parámetros.</p>
+<p><strong>Limitaciones.</strong> Los bordes dependen de la interpolación final, como en FCN, y el agrupamiento global puede
+borrar objetos muy pequeños.</p>
+<p><strong>Desempeño reportado en el subgrupo de señales</strong> (una corrida, sin intervalo; la métrica y el dataset son los
+de cada estudio):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Estudio</p></th>
+<th class="head"><p>Dataset</p></th>
+<th class="head"><p>Métrica</p></th>
+<th class="head"><p>Modelos base y propuesto</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>R455, Zhong et al. (2019)</p></td>
+<td><p>CTSD, 1.100 imágenes</p></td>
+<td><p>IoU %</p></td>
+<td><p>FCN 66,63; DeepLab-LargeFOV 72,14; DeepLab-ASPP 75,55; propuesto 77,17</p></td>
+</tr>
+<tr class="row-odd"><td><p>R128, Ailing et al. (2024)</p></td>
+<td><p>propio, 914 imágenes</p></td>
+<td><p>mIoU</p></td>
+<td><p>HRNet 0,653; PSPNet 0,730; U-Net 0,762; DeepLabv3+ 0,773; propuesto 0,813</p></td>
+</tr>
+<tr class="row-even"><td><p>R429, Kamal et al. (2020)</p></td>
+<td><p>CURE-TSD</p></td>
+<td><p>mIoU</p></td>
+<td><p>PSPNet 0,26; DeepLabv3 0,35; propuesto 0,53</p></td>
+</tr>
+<tr class="row-odd"><td><p>R447, Leonardi et al. (2019)</p></td>
+<td><p>GTSDB</p></td>
+<td><p>mIoU</p></td>
+<td><p>ENet 28,2; ESPNet 35,7; EDANet 37,9; ERFNet 41,2; propuesto 51,7</p></td>
+</tr>
+<tr class="row-even"><td><p>R522, Yang et al. (2018)</p></td>
+<td><p>Mapillary Vistas</p></td>
+<td><p>mIoU</p></td>
+<td><p>ENet 59,89; LinkNet 63,25; propuesto 67,09</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>En los dos estudios que comparan varios de nuestros modelos sobre el mismo dataset, el orden es el mismo: FCN
+por debajo de DeepLab (R455) y PSPNet por debajo de U-Net y de DeepLabv3+ (R128).</p>
 </section>
 </section>
+<section id="comparacion-critica-y-brecha">
+<h2>3.4 Comparación crítica y brecha<a class="headerlink" href="#comparacion-critica-y-brecha" title="Link to this heading">#</a></h2>
+<p><strong>Comparación entre los modelos base.</strong> Los cinco comparten codificador y cabeza, y se diferencian en una sola
+decisión: cómo vuelve la información a resolución completa. FCN no la recupera, SegNet la recupera con índices,
+U-Net con mapas completos, y DeepLab y PSPNet no la recuperan pero añaden contexto. Si el error dominante en los
+rótulos es de bordes, deberían ganar U-Net y SegNet; si es de confusión con el fondo, DeepLab y PSPNet. El
+benchmark permite separar las dos hipótesis.</p>
+<p><strong>Validez de los estudios.</strong> Tres de cada cuatro usan la partición oficial de un dataset público (riesgo de fuga
+bajo), pero el 17 % no dice cómo particiona. Ninguno repite corridas ni reporta intervalos, así que las
+diferencias entre modelos (de 1 a 18 puntos) no tienen incertidumbre asociada. Con la variabilidad entre
+semillas que se mide en este trabajo, parte de esas diferencias podría estar dentro del ruido. Los datasets
+cambian de estudio a estudio (CTSD, GTSDB, CURE-TSD, Mapillary, conjuntos propios), y por eso los valores no se
+pueden comparar entre filas.</p>
+<p><strong>Brecha entre modelos avanzados y modelos base.</strong> En el subgrupo de señales, el modelo propuesto de cada estudio
+supera al mejor modelo base que reporta por 1,6 (R455), 3,8 (R522), 4,0 (R128), 10,5 (R447) y 18 puntos (R429).
+La brecha típica está entre 2 y 10 puntos de IoU, siempre medida en una sola corrida. Esa es la referencia para
+juzgar si un modelo avanzado mejora de verdad sobre los modelos base de este trabajo.</p>
+<p><strong>Gap verificable.</strong> Ninguno de los 96 estudios incluidos (1) segmenta rótulos de mercancías peligrosas, (2)
+repite corridas, ni (3) compara modelos con inferencia estadística: 96 de 96 tienen una sola corrida y 94 de 96
+no reportan prueba ni intervalo. Este trabajo aporta los tres: un problema sin literatura indexada, modelos base
+evaluados con varias semillas y comparaciones con pruebas formales.</p>
+</section>
+<section id="antecedentes-del-dominio-fuera-de-la-busqueda-sistematica">
+<h2>3.5 Antecedentes del dominio fuera de la búsqueda sistemática<a class="headerlink" href="#antecedentes-del-dominio-fuera-de-la-busqueda-sistematica" title="Link to this heading">#</a></h2>
+<p>Las cadenas sistemáticas no recuperan los estudios que tratan rótulos de mercancías peligrosas, porque estos detectan o clasifican el rótulo y no lo segmentan por píxel (criterio E2). Se incorporan por búsqueda manual, declarada, como contexto del problema; no entran en los conteos PRISMA ni en la tabla de frecuencia.</p>
 <section id="fuentes-de-aplicacion-y-criterios-de-lectura">
-<h2>Fuentes de aplicación y criterios de lectura<a class="headerlink" href="#fuentes-de-aplicacion-y-criterios-de-lectura" title="Link to this heading">#</a></h2>
+<h3>Fuentes de aplicación y criterios de lectura<a class="headerlink" href="#fuentes-de-aplicacion-y-criterios-de-lectura" title="Link to this heading">#</a></h3>
 <p>La <a class="reference download internal" download="" href="_downloads/4702f42440f5956305f20c7af23a3d4f/Estado_del_arte_IMO_matriz_4_fuentes.xlsx"><code class="xref download docutils literal notranslate"><span class="pre">matriz</span> <span class="pre">bibliográfica</span> <span class="pre">del</span> <span class="pre">proyecto</span></code></a> identifica cada estudio por autor, tarea, método, datos, métricas, alcance de la lectura y aporte a la tesis. Para interpretar un resultado comprobamos <strong>qué se predice</strong> (caja, máscara, clase o texto) y <strong>sobre qué unidad se evalúa</strong> (imagen, rótulo o secuencia).</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -422,6 +889,7 @@ Pregunta del experimento → comparar cinco redes de segmentación binaria
 Fundamentos de arquitectura → Long et al., Badrinarayanan et al., Ronneberger et al., Chen et al. y Zhao et al.
 </pre></div>
 </div>
+</section>
 <section id="busqueda-exploratoria-complementaria">
 <h3>Búsqueda exploratoria complementaria<a class="headerlink" href="#busqueda-exploratoria-complementaria" title="Link to this heading">#</a></h3>
 <p>Se documentaron nueve consultas exploratorias sobre el corpus y las arquitecturas. Las cadenas empleadas fueron las siguientes.</p>
@@ -437,9 +905,8 @@ SeaFront dataset hazardous goods placards segmentation baseline
 </pre></div>
 </div>
 </section>
-</section>
 <section id="articulos-que-fundamentan-las-cinco-arquitecturas">
-<h2>Artículos que fundamentan las cinco arquitecturas<a class="headerlink" href="#articulos-que-fundamentan-las-cinco-arquitecturas" title="Link to this heading">#</a></h2>
+<h3>Artículos que fundamentan las cinco arquitecturas<a class="headerlink" href="#articulos-que-fundamentan-las-cinco-arquitecturas" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Artículo</p></th>
@@ -481,6 +948,236 @@ SeaFront dataset hazardous goods placards segmentation baseline
 <p><strong>Qué se puede comparar.</strong> La matriz destaca un riesgo concreto en Sharifi et al.: al aumentar el número de imágenes, importa en qué momento se separan las fotografías originales y sus variantes. Para nuestro experimento, todas las imágenes conectadas por los enlaces de similitud detectados se asignan al mismo grupo antes de la partición. En Brylka et al., la diferencia entre recall por imagen y detección por secuencia ilustra por qué también declaramos la unidad de evaluación.</p>
 <p>En el antecedente directo, Sharifi y colaboradores informan 87,65 % de IoU y 97,58 % de F1 como promedios sobre las 13 categorías. La tabla del artículo no ofrece IC para esos promedios. Aquí se evalúa una máscara binaria por imagen y se pondera por grupo de similitud. Restar directamente ambos resultados mezclaría definiciones de clase, unidad de agregación y particiones. La verificación del artículo publicado complementa la lectura histórica de su prepublicación. <a class="reference external" href="https://eprints.whiterose.ac.uk/id/eprint/176122/7/1-s2.0-S2666827021000529-main.pdf">Sharifi et al., tabla 3</a></p>
 <p><strong>Decisión experimental.</strong> FCN reconstruye desde un mapa grueso, SegNet recupera posiciones de máximos, U-Net reutiliza características superficiales, DeepLab combina campos receptivos de distintos tamaños y PSPNet agrega información regional. La comparación mide cuánto aporta cada diseño bajo un presupuesto común.</p>
+</section>
+</section>
+<section id="anexo-a-tabla-de-sintesis-estudios-de-senales-rotulos-y-letreros-n-14">
+<h2>Anexo A. Tabla de síntesis: estudios de señales, rótulos y letreros (n = 14)<a class="headerlink" href="#anexo-a-tabla-de-sintesis-estudios-de-senales-rotulos-y-letreros-n-14" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Estudio</p></th>
+<th class="head"><p>Dataset</p></th>
+<th class="head"><p>Modelo propuesto</p></th>
+<th class="head"><p>Métrica</p></th>
+<th class="head"><p>Propuesto</p></th>
+<th class="head"><p>Modelos base de DL</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>R522, Yang et al. (2018)</p></td>
+<td><p>Mapillary Vistas; Pedestrian Crossing Lights (Chi…</p></td>
+<td><p>ERF-PSPNet</p></td>
+<td><p>mIoU (11 clases de navegacion)</p></td>
+<td><p>ERF-PSPNet=67.09</p></td>
+<td><p>ENet=59.89; LinkNet=63.25</p></td>
+</tr>
+<tr class="row-odd"><td><p>R447, Leonardi et al. (2019)</p></td>
+<td><p>Cityscapes; GTSDB; Lane Markings; Mapillary Vistas</p></td>
+<td><p>Entrenamiento multi-dataset: un codific…</p></td>
+<td><p>mIoU (GTSDB, entrenado en Cityscap…</p></td>
+<td><p>—</p></td>
+<td><p>GUNet=51.7; iGUM-Net=38.4; ENet=28.2; ESPNet=35.7; ERFNet=41.2; EDANet=37.9</p></td>
+</tr>
+<tr class="row-even"><td><p>R455, S. Zhong et al. (2019)</p></td>
+<td><p>CTSD (1100 imágenes)</p></td>
+<td><p>DenseNet + LMAM (atención multiescala l…</p></td>
+<td><p>IoU (%), todas las escalas</p></td>
+<td><p>77.17</p></td>
+<td><p>FCN=66.63; DeepLab-LargeFOV=72.14; DeepLab-ASPP=75.55</p></td>
+</tr>
+<tr class="row-odd"><td><p>R425, E. Hrustic et al. (2020)</p></td>
+<td><p>GTSDB; GTSRB (vertices anotados a mano)</p></td>
+<td><p>RetinaNet + regresion directa de vertic…</p></td>
+<td><p>IoU (bordes) y mAP (deteccion)</p></td>
+<td><p>IoU 0.823</p></td>
+<td><p>Mask R-CNN=0.767</p></td>
+</tr>
+<tr class="row-even"><td><p>R429, Kamal et al. (2020)</p></td>
+<td><p>CURE-TSD; GTSDB; CURE-TSR (clasificador)</p></td>
+<td><p>SegU-Net con perdida Tversky y restricc…</p></td>
+<td><p>mIoU</p></td>
+<td><p>0.53</p></td>
+<td><p>PSPNet=0.26; DeepLabv3=0.35</p></td>
+</tr>
+<tr class="row-odd"><td><p>R443, Hassan et al. (2020)</p></td>
+<td><p>imágenes propias de semáforo peatonal (Singapur):…</p></td>
+<td><p>HSV + clasificador CNN (AlexNet)</p></td>
+<td><p>exactitud promedio (%)</p></td>
+<td><p>HSV+CNN=92.75</p></td>
+<td><p>Mask R-CNN+CNN=89.25</p></td>
+</tr>
+<tr class="row-even"><td><p>R330, H. Qian et al. (2021)</p></td>
+<td><p>TT-100K-HHU (TT-100K ampliado con 9296 imagenes d…</p></td>
+<td><p>Mask R-CNN mejorado (ResNet-50-FPN + 3 …</p></td>
+<td><p>mask mAP&#64;[0.5:0.95]</p></td>
+<td><p>0.644 (con aumento de datos)</p></td>
+<td><p>Mask R-CNN ResNet-50-FPN con aumento=0.607</p></td>
+</tr>
+<tr class="row-odd"><td><p>R379, Sanjeewani et al. (2021)</p></td>
+<td><p>AusRAP Queensland (propio, 549 entrenamiento y 10…</p></td>
+<td><p>FCN (VGG19) con una clase para señales …</p></td>
+<td><p>exactitud por atributo (señal)</p></td>
+<td><p>media simple de 11 clases=94.…</p></td>
+<td><p>FCN con voto por píxel: media simple=42.97 (calculada)</p></td>
+</tr>
+<tr class="row-even"><td><p>R309, Zhang et al. (2022)</p></td>
+<td><p>Conjunto propio de ROI de letreros y placas de ca…</p></td>
+<td><p>Cascade Mask R-CNN con Swin-B (canal de…</p></td>
+<td><p>mask mAP&#64;[0.5:0.95]</p></td>
+<td><p>0.656 (Swin-B)</p></td>
+<td><p>Mask R-CNN (Swin-S)=0.563</p></td>
+</tr>
+<tr class="row-odd"><td><p>R212, Gouda et al. (2023)</p></td>
+<td><p>LiDAR móvil de 7 tramos de carretera en Alberta (…</p></td>
+<td><p>PointNet++ modificado (rasgos geométric…</p></td>
+<td><p>F1 por señal</p></td>
+<td><p>0.98</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p>R213, Yao et al. (2023)</p></td>
+<td><p>ZCTSDB; ZCTSDB-lightness</p></td>
+<td><p>Mejora de iluminación + Mask R-CNN (Res…</p></td>
+<td><p>mAP de segmentación (mAPseg)</p></td>
+<td><p>74.906</p></td>
+<td><p>Mask R-CNN=74.734</p></td>
+</tr>
+<tr class="row-odd"><td><p>R128, Ailing et al. (2024)</p></td>
+<td><p>Conjunto propio Chang’an (914 imágenes, 7 clases)</p></td>
+<td><p>DeepSwin (DeepLabv3+ con Swin y CSFA)</p></td>
+<td><p>mIoU</p></td>
+<td><p>DeepSwin=0.813</p></td>
+<td><p>HRNet=0.653; PSPNet=0.730; U-Net=0.762; DeepLabv3+=0.773</p></td>
+</tr>
+<tr class="row-even"><td><p>R162, Siow et al. (2024)</p></td>
+<td><p>Conjunto propio UTHM (señales de frente, 320 imág…</p></td>
+<td><p>YOLACT (ResNet-101)</p></td>
+<td><p>mask mAP</p></td>
+<td><p>YOLACT-R101=96.52</p></td>
+<td><p>Mask R-CNN-R101=93.75; Mask R-CNN-R50=87.50</p></td>
+</tr>
+<tr class="row-odd"><td><p>R072, Wang et al. (2025)</p></td>
+<td><p>ME-Seg (propio, 2000 imágenes)</p></td>
+<td><p>DLS-Net</p></td>
+<td><p>mIoU</p></td>
+<td><p>75.61</p></td>
+<td><p>—</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>La tabla completa de los 96 estudios incluidos está en <code class="docutils literal notranslate"><span class="pre">productos/tabla_sintesis.csv</span></code>.</p>
+</section>
+<section id="referencias">
+<h2>Referencias<a class="headerlink" href="#referencias" title="Link to this heading">#</a></h2>
+<p><strong>Modelos y método</strong></p>
+<ul class="simple">
+<li><p>Badrinarayanan, V., Kendall, A. y Cipolla, R. (2017). SegNet: A deep convolutional encoder-decoder architecture for image segmentation. IEEE Transactions on Pattern Analysis and Machine Intelligence, 39(12), 2481-2495. <a class="reference external" href="https://doi.org/10.1109/TPAMI.2016.2644615">https://doi.org/10.1109/TPAMI.2016.2644615</a></p></li>
+<li><p>Chen, L.-C., Papandreou, G., Kokkinos, I., Murphy, K. y Yuille, A. L. (2018). DeepLab: Semantic image segmentation with deep convolutional nets, atrous convolution, and fully connected CRFs. IEEE Transactions on Pattern Analysis and Machine Intelligence, 40(4), 834-848. <a class="reference external" href="https://doi.org/10.1109/TPAMI.2017.2699184">https://doi.org/10.1109/TPAMI.2017.2699184</a></p></li>
+<li><p>Long, J., Shelhamer, E. y Darrell, T. (2015). Fully convolutional networks for semantic segmentation. En Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (pp. 3431-3440). <a class="reference external" href="https://doi.org/10.1109/CVPR.2015.7298965">https://doi.org/10.1109/CVPR.2015.7298965</a></p></li>
+<li><p>Page, M. J. et al. (2021). The PRISMA 2020 statement: An updated guideline for reporting systematic reviews. BMJ, 372, n71. <a class="reference external" href="https://doi.org/10.1136/bmj.n71">https://doi.org/10.1136/bmj.n71</a></p></li>
+<li><p>Ronneberger, O., Fischer, P. y Brox, T. (2015). U-Net: Convolutional networks for biomedical image segmentation. En Medical Image Computing and Computer-Assisted Intervention - MICCAI 2015 (pp. 234-241). Springer. <a class="reference external" href="https://doi.org/10.1007/978-3-319-24574-4_28">https://doi.org/10.1007/978-3-319-24574-4_28</a></p></li>
+<li><p>Zhao, H., Shi, J., Qi, X., Wang, X. y Jia, J. (2017). Pyramid scene parsing network. En Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (pp. 2881-2890). <a class="reference external" href="https://doi.org/10.1109/CVPR.2017.660">https://doi.org/10.1109/CVPR.2017.660</a></p></li>
+<li><p>Landis, J. R. y Koch, G. G. (1977). The measurement of observer agreement for categorical data. Biometrics, 33(1), 159-174. <a class="reference external" href="https://doi.org/10.2307/2529310">https://doi.org/10.2307/2529310</a></p></li>
+<li><p>Simonyan, K. y Zisserman, A. (2015). Very deep convolutional networks for large-scale image recognition. International Conference on Learning Representations. arXiv:1409.1556</p></li>
+</ul>
+<p><strong>Estudios incluidos en la revisión (n = 96)</strong></p>
+<ul class="simple">
+<li><p>[R219] A. Soni et al. (2023). Supervised Attention Network for Arbitrary-Shaped Text Detection in Edge-Fainted Noisy Scene Images. IEEE Transactions on Computational Social Systems. <a class="reference external" href="https://doi.org/10.1109/TCSS.2022.3153557">https://doi.org/10.1109/TCSS.2022.3153557</a></p></li>
+<li><p>[R128] Ailing et al. (2024). Semantic Segmentation of Road Traffic Sign based on Improved Deeplabv3+. 2024 9th International Conference on Computer and Communication Systems, ICCCS 2024. <a class="reference external" href="https://doi.org/10.1109/ICCCS61882.2024.10603050">https://doi.org/10.1109/ICCCS61882.2024.10603050</a></p></li>
+<li><p>[R305] Ali et al. (2022). GMIF: A Gated Multiscale Input Feature Fusion Scheme for Scene Text Detection. IEEE ACCESS. <a class="reference external" href="https://doi.org/10.1109/ACCESS.2022.3203691">https://doi.org/10.1109/ACCESS.2022.3203691</a></p></li>
+<li><p>[R156] Almusawi et al. (2024). Maximum Entropy Scaled Super-Pixel Segmentation for Effective Text Detection. 2nd IEEE International Conference on Data Science and Network Security, ICDSNS 2024. <a class="reference external" href="https://doi.org/10.1109/ICDSNS62112.2024.10691129">https://doi.org/10.1109/ICDSNS62112.2024.10691129</a></p></li>
+<li><p>[R159] B. Chen et al. (2024). LR-DiffText: Low Resolution Scene Text Detection Based on Diffusion Probabilistic Model. 2024 International Joint Conference on Neural Networks (IJCNN). <a class="reference external" href="https://doi.org/10.1109/IJCNN60899.2024.10651215">https://doi.org/10.1109/IJCNN60899.2024.10651215</a></p></li>
+<li><p>[R385] Bonechi et al. (2020). Weak supervision for generating pixel–level annotations in scene text segmentation. Pattern Recognition Letters. <a class="reference external" href="https://doi.org/10.1016/j.patrec.2020.06.023">https://doi.org/10.1016/j.patrec.2020.06.023</a></p></li>
+<li><p>[R474] C. -S. Yang et al. (2019). High Accuracy Text Detection using ResNet as Feature Extractor. 2019 IEEE Eurasia Conference on IOT, Communication and Engineering (ECICE). <a class="reference external" href="https://doi.org/10.1109/ECICE47484.2019.8942666">https://doi.org/10.1109/ECICE47484.2019.8942666</a></p></li>
+<li><p>[R441] C. He et al. (2020). A Novel Method for Curved Scene Text Detection. 2020 Chinese Control And Decision Conference (CCDC). <a class="reference external" href="https://doi.org/10.1109/CCDC49329.2020.9164414">https://doi.org/10.1109/CCDC49329.2020.9164414</a></p></li>
+<li><p>[R239] C. Xu et al. (2023). MorphText: Deep Morphology Regularized Accurate Arbitrary-Shape Scene Text Detection. IEEE Transactions on Multimedia. <a class="reference external" href="https://doi.org/10.1109/TMM.2022.3172547">https://doi.org/10.1109/TMM.2022.3172547</a></p></li>
+<li><p>[R313] C. Zhang et al. (2022). Character-Level Street View Text Spotting Based on Deep Multisegmentation Network for Smarter Autonomous Driving. IEEE Transactions on Artificial Intelligence. <a class="reference external" href="https://doi.org/10.1109/TAI.2021.3116216">https://doi.org/10.1109/TAI.2021.3116216</a></p></li>
+<li><p>[R471] Chen et al. (2019). Irregular scene text detection via attention guided border labeling. Science China Information Sciences. <a class="reference external" href="https://doi.org/10.1007/s11432-019-2673-8">https://doi.org/10.1007/s11432-019-2673-8</a></p></li>
+<li><p>[R267] Chen et al. (2023). A New Strategy for Reducing Errors in Scene Text Detection. 2023 4th International Conference on Computer Vision, Image and Deep Learning, CVIDL 2023. <a class="reference external" href="https://doi.org/10.1109/CVIDL58838.2023.10166555">https://doi.org/10.1109/CVIDL58838.2023.10166555</a></p></li>
+<li><p>[R498] Dai et al. (2019). A Novel Method for Text Detection in Arbitrary Scenes Based on Multi-scale Segmentation Networks. Proceedings of the 31st Chinese Control and Decision Conference, CCDC 2019. <a class="reference external" href="https://doi.org/10.1109/CCDC.2019.8833432">https://doi.org/10.1109/CCDC.2019.8833432</a></p></li>
+<li><p>[R226] Dang et al. (2023). Scene Text Segmentation by Paired Data Synthesis. Proceedings - International Conference on Image Processing, ICIP. <a class="reference external" href="https://doi.org/10.1109/ICIP49359.2023.10222845">https://doi.org/10.1109/ICIP49359.2023.10222845</a></p></li>
+<li><p>[R225] Dang et al. (2023). Scene Text Segmentation via Multi-Task Cascade Transformer With Paired Data Synthesis. IEEE Access. <a class="reference external" href="https://doi.org/10.1109/ACCESS.2023.3292264">https://doi.org/10.1109/ACCESS.2023.3292264</a></p></li>
+<li><p>[R517] Deng et al. (2018). PixelLink: Detecting scene text via instance segmentation. 32nd AAAI Conference on Artificial Intelligence, AAAI 2018.</p></li>
+<li><p>[R452] Du et al. (2019). TextEdge: Multi-oriented scene text detection via region segmentation and edge classification. Proceedings of the International Conference on Document Analysis and Recognition, ICDAR. <a class="reference external" href="https://doi.org/10.1109/ICDAR.2019.00067">https://doi.org/10.1109/ICDAR.2019.00067</a></p></li>
+<li><p>[R425] E. Hrustic et al. (2020). Deep Learning Based Traffic Signs Boundary Estimation. 2020 IEEE Intelligent Vehicles Symposium (IV). <a class="reference external" href="https://doi.org/10.1109/IV47402.2020.9304590">https://doi.org/10.1109/IV47402.2020.9304590</a></p></li>
+<li><p>[R516] Feng et al. (2018). Scene Text Detection with Recurrent Instance Segmentation. Proceedings - International Conference on Pattern Recognition. <a class="reference external" href="https://doi.org/10.1109/ICPR.2018.8545073">https://doi.org/10.1109/ICPR.2018.8545073</a></p></li>
+<li><p>[R241] Fu et al. (2023). Learning Pixel Affinity Pyramid for Arbitrary-Shaped Text Detection. ACM Transactions on Multimedia Computing, Communications and Applications. <a class="reference external" href="https://doi.org/10.1145/3524617">https://doi.org/10.1145/3524617</a></p></li>
+<li><p>[R484] Gao et al. (2019). Convolutional Regression Network for Multi-Oriented Text Detection. IEEE Access. <a class="reference external" href="https://doi.org/10.1109/ACCESS.2019.2929819">https://doi.org/10.1109/ACCESS.2019.2929819</a></p></li>
+<li><p>[R212] Gouda et al. (2023). Traffic sign extraction using deep hierarchical feature learning and mobile light detection and ranging (LiDAR) data on rural highways. Journal of Intelligent Transportation Systems: Technology, Planning, and Operations. <a class="reference external" href="https://doi.org/10.1080/15472450.2022.2074792">https://doi.org/10.1080/15472450.2022.2074792</a></p></li>
+<li><p>[R068] Guo et al. (2025). Multilingual natural scene text detection via global feature fusion: Multilingual natural scene text detection via global feature fusion: H. Guo et al.. Applied Intelligence. <a class="reference external" href="https://doi.org/10.1007/s10489-024-05951-8">https://doi.org/10.1007/s10489-024-05951-8</a></p></li>
+<li><p>[R470] H. Kuang et al. (2019). Location Sensitive Regression Algorithm for Multi-oriented Scene Text Detection with Focal Loss. 2019 11th International Conference on Measuring Technology and Mechatronics Automation (ICMTMA). <a class="reference external" href="https://doi.org/10.1109/ICMTMA.2019.00108">https://doi.org/10.1109/ICMTMA.2019.00108</a></p></li>
+<li><p>[R417] H. Liu et al. (2020). Hull Number Detection for Ship Images Based on Image Super-Resolution. 2020 13th International Congress on Image and Signal Processing, BioMedical Engineering and Informatics (CISP-BMEI). <a class="reference external" href="https://doi.org/10.1109/CISP-BMEI51763.2020.9263636">https://doi.org/10.1109/CISP-BMEI51763.2020.9263636</a></p></li>
+<li><p>[R330] H. Qian et al. (2021). Traffic Signs Detection and Segmentation Based on the Improved Mask R-CNN. 2021 40th Chinese Control Conference (CCC). <a class="reference external" href="https://doi.org/10.23919/CCC52363.2021.9549552">https://doi.org/10.23919/CCC52363.2021.9549552</a></p></li>
+<li><p>[R288] H. Wang et al. (2022). Research on Text Detection Algorithm based on Improved FPN. 2022 IEEE 6th Advanced Information Technology, Electronic and Automation Control Conference (IAEAC ). <a class="reference external" href="https://doi.org/10.1109/IAEAC54830.2022.9929716">https://doi.org/10.1109/IAEAC54830.2022.9929716</a></p></li>
+<li><p>[R443] Hassan et al. (2020). A Comparative Study on HSV-based and Deep Learning-based Object Detection Algorithms for Pedestrian Traffic Light Signal Recognition. 2020 3rd International Conference on Intelligent Autonomous Systems, ICoIAS 2020. <a class="reference external" href="https://doi.org/10.1109/ICoIAS49312.2020.9081854">https://doi.org/10.1109/ICoIAS49312.2020.9081854</a></p></li>
+<li><p>[R140] He et al. (2024). Research on Legal Text Extraction and Recognition Based on Deep Learning. ACM International Conference Proceeding Series. <a class="reference external" href="https://doi.org/10.1145/3671151.3671328">https://doi.org/10.1145/3671151.3671328</a></p></li>
+<li><p>[R357] J. Chen et al. (2021). Knowledge Distillation via Entropy Map for Scene Text Detection. 2021 16th International Conference on Computer Science &amp; Education (ICCSE). <a class="reference external" href="https://doi.org/10.1109/ICCSE51940.2021.9569689">https://doi.org/10.1109/ICCSE51940.2021.9569689</a></p></li>
+<li><p>[R439] J. Liu et al. (2020). ASTS: A Unified Framework for Arbitrary Shape Text Spotting. IEEE Transactions on Image Processing. <a class="reference external" href="https://doi.org/10.1109/TIP.2020.2984082">https://doi.org/10.1109/TIP.2020.2984082</a></p></li>
+<li><p>[R496] J. Zhang et al. (2019). A Text Localization Method Based on Weak Supervision. 2019 International Conference on Document Analysis and Recognition (ICDAR). <a class="reference external" href="https://doi.org/10.1109/ICDAR.2019.00129">https://doi.org/10.1109/ICDAR.2019.00129</a></p></li>
+<li><p>[R321] Jin et al. (2022). A deep learning based scene text detector combining two strategies. ACM International Conference Proceeding Series. <a class="reference external" href="https://doi.org/10.1145/3579654.3579676">https://doi.org/10.1145/3579654.3579676</a></p></li>
+<li><p>[R402] K. Dasgupta et al. (2020). Scale-Invariant Multi-Oriented Text Detection in Wild Scene Image. 2020 IEEE International Conference on Image Processing (ICIP). <a class="reference external" href="https://doi.org/10.1109/ICIP40778.2020.9191102">https://doi.org/10.1109/ICIP40778.2020.9191102</a></p></li>
+<li><p>[R429] Kamal et al. (2020). Automatic Traffic Sign Detection and Recognition Using SegU-Net and a Modified Tversky Loss Function with L1-Constraint. IEEE Transactions on Intelligent Transportation Systems. <a class="reference external" href="https://doi.org/10.1109/TITS.2019.2911727">https://doi.org/10.1109/TITS.2019.2911727</a></p></li>
+<li><p>[R220] L. Li et al. (2023). StrokeNet: Stroke Assisted and Hierarchical Graph Reasoning Networks. IEEE Transactions on Multimedia. <a class="reference external" href="https://doi.org/10.1109/TMM.2022.3198017">https://doi.org/10.1109/TMM.2022.3198017</a></p></li>
+<li><p>[R447] Leonardi et al. (2019). Training efficient semantic segmentation CNNs on multiple datasets. Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics). <a class="reference external" href="https://doi.org/10.1007/978-3-030-30645-8_28">https://doi.org/10.1007/978-3-030-30645-8_28</a></p></li>
+<li><p>[R314] Li (2022). CSNet-PGNet: Algorithm for Scene Text Detection and Recognition. 2022 3rd International Conference on Computer Vision, Image and Deep Learning and International Conference on Computer Engineering and Applications, CVIDL and ICCEA 2022. <a class="reference external" href="https://doi.org/10.1109/CVIDLICCEA56201.2022.9824815">https://doi.org/10.1109/CVIDLICCEA56201.2022.9824815</a></p></li>
+<li><p>[R457] Liao et al. (2019). Scene text recognition from two-dimensional perspective. 33rd AAAI Conference on Artificial Intelligence, AAAI 2019, 31st Innovative Applications of Artificial Intelligence Conference, IAAI 2019 and the 9th AAAI Symposium on Educational Advances in Artificial Intelligence, EAAI 2019. <a class="reference external" href="https://doi.org/10.1609/aaai.v33i01.33018714">https://doi.org/10.1609/aaai.v33i01.33018714</a></p></li>
+<li><p>[R492] Liu et al. (2019). AB-LSTM: Attention-based Bidirectional LSTM Model for Scene Text Detection. ACM TRANSACTIONS ON MULTIMEDIA COMPUTING COMMUNICATIONS AND APPLICATIONS. <a class="reference external" href="https://doi.org/10.1145/3356728">https://doi.org/10.1145/3356728</a></p></li>
+<li><p>[R479] Liu et al. (2019). Enhancing Scene Text Detection via Fused Semantic Segmentation Network with Attention. Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics). <a class="reference external" href="https://doi.org/10.1007/978-3-030-05710-7_44">https://doi.org/10.1007/978-3-030-05710-7_44</a></p></li>
+<li><p>[R458] Liu et al. (2019). Scene text detection with fully convolutional neural networks. Multimedia Tools and Applications. <a class="reference external" href="https://doi.org/10.1007/s11042-019-7177-4">https://doi.org/10.1007/s11042-019-7177-4</a></p></li>
+<li><p>[R433] Liu et al. (2020). Arbitrarily Shaped Scene Text Detection with a Mask Tightness Text Detector. IEEE Transactions on Image Processing. <a class="reference external" href="https://doi.org/10.1109/TIP.2019.2954218">https://doi.org/10.1109/TIP.2019.2954218</a></p></li>
+<li><p>[R307] Lobanova et al. (2022). Development of software for the segmentation of text areas in real-scene images. Computer Optics. <a class="reference external" href="https://doi.org/10.18287/2412-6179-CO-1047">https://doi.org/10.18287/2412-6179-CO-1047</a></p></li>
+<li><p>[R475] M. Cao et al. (2019). GISCA: Gradient-Inductive Segmentation Network With Contextual Attention for Scene Text Detection. IEEE Access. <a class="reference external" href="https://doi.org/10.1109/ACCESS.2019.2915513">https://doi.org/10.1109/ACCESS.2019.2915513</a></p></li>
+<li><p>[R291] M. Chen et al. (2022). Research of Scene Text Detection Algorithms. 2022 5th International Conference on Intelligent Robotics and Control Engineering (IRCE). <a class="reference external" href="https://doi.org/10.1109/IRCE55557.2022.9963115">https://doi.org/10.1109/IRCE55557.2022.9963115</a></p></li>
+<li><p>[R354] M. Liao et al. (2021). Mask TextSpotter: An End-to-End Trainable Neural Network for Spotting Text with Arbitrary Shapes. IEEE Transactions on Pattern Analysis and Machine Intelligence. <a class="reference external" href="https://doi.org/10.1109/TPAMI.2019.2937086">https://doi.org/10.1109/TPAMI.2019.2937086</a></p></li>
+<li><p>[R132] N. Wen (2024). Scene Text Detection in Medical Based on Differentiable Binarization. 2024 IEEE 16th International Conference on Computational Intelligence and Communication Networks (CICN). <a class="reference external" href="https://doi.org/10.1109/CICN63059.2024.10847482">https://doi.org/10.1109/CICN63059.2024.10847482</a></p></li>
+<li><p>[R183] Naim et al. (2024). Context-Attention Architecture for Multi-Oriented Text Detection. ISIVC 2024 - Proceedings: 12th IEEE International Symposium on Signal, Image, Video, and Communications. <a class="reference external" href="https://doi.org/10.1109/ISIVC61350.2024.10577783">https://doi.org/10.1109/ISIVC61350.2024.10577783</a></p></li>
+<li><p>[R325] Nandanwar et al. (2022). A New Deep Wavefront Based Model for Text Localization in 3D Video. IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS FOR VIDEO TECHNOLOGY. <a class="reference external" href="https://doi.org/10.1109/TCSVT.2021.3110990">https://doi.org/10.1109/TCSVT.2021.3110990</a></p></li>
+<li><p>[R442] P. Cheng et al. (2020). A Direct Regression Scene Text Detector With Position-Sensitive Segmentation. IEEE Transactions on Circuits and Systems for Video Technology. <a class="reference external" href="https://doi.org/10.1109/TCSVT.2019.2947475">https://doi.org/10.1109/TCSVT.2019.2947475</a></p></li>
+<li><p>[R424] P. Dai et al. (2020). Deep Multi-Scale Context Aware Feature Aggregation for Curved Scene Text Detection. IEEE Transactions on Multimedia. <a class="reference external" href="https://doi.org/10.1109/TMM.2019.2952978">https://doi.org/10.1109/TMM.2019.2952978</a></p></li>
+<li><p>[R519] P. Lyu et al. (2018). Multi-oriented Scene Text Detection via Corner Localization and Region Segmentation. 2018 IEEE/CVF Conference on Computer Vision and Pattern Recognition. <a class="reference external" href="https://doi.org/10.1109/CVPR.2018.00788">https://doi.org/10.1109/CVPR.2018.00788</a></p></li>
+<li><p>[R412] Pan et al. (2020). Multi-oriented Scene Text Detector with Atrous Convolution. 2020 Information Communication Technologies Conference, ICTC 2020. <a class="reference external" href="https://doi.org/10.1109/ICTC49638.2020.9123297">https://doi.org/10.1109/ICTC49638.2020.9123297</a></p></li>
+<li><p>[R171] Q. Mu et al. (2024). Gradient Adjustment for better Differentiable Binarization in scene text detection. 2024 5th International Conference on Artificial Intelligence and Electromechanical Automation (AIEA). <a class="reference external" href="https://doi.org/10.1109/AIEA62095.2024.10692431">https://doi.org/10.1109/AIEA62095.2024.10692431</a></p></li>
+<li><p>[R483] Q. Wang et al. (2019). DeepText: Detecting Text from the Wild with Multi-ASPP-Assembled DeepLab. 2019 International Conference on Document Analysis and Recognition (ICDAR). <a class="reference external" href="https://doi.org/10.1109/ICDAR.2019.00042">https://doi.org/10.1109/ICDAR.2019.00042</a></p></li>
+<li><p>[R335] R. S. Munjal et al. (2021). TeLCoS: OnDevice Text Localization with Clustering of Script. 2021 International Joint Conference on Neural Networks (IJCNN). <a class="reference external" href="https://doi.org/10.1109/IJCNN52387.2021.9533292">https://doi.org/10.1109/IJCNN52387.2021.9533292</a></p></li>
+<li><p>[R124] R. Wang et al. (2024). TTDNet: An End-to-End Traffic Text Detection Framework for Open Driving Environments. IEEE Transactions on Intelligent Transportation Systems. <a class="reference external" href="https://doi.org/10.1109/TITS.2024.3479884">https://doi.org/10.1109/TITS.2024.3479884</a></p></li>
+<li><p>[R531] Ruan et al. (2018). A novel method for fast arbitrary-oriented scene text detection. Proceedings of the 30th Chinese Control and Decision Conference, CCDC 2018. <a class="reference external" href="https://doi.org/10.1109/CCDC.2018.8407393">https://doi.org/10.1109/CCDC.2018.8407393</a></p></li>
+<li><p>[R386] S. Anand et al. (2020). W-A net: Leveraging Atrous and Deformable Convolutions for Efficient Text Detection. 2020 Digital Image Computing: Techniques and Applications (DICTA). <a class="reference external" href="https://doi.org/10.1109/DICTA51227.2020.9363428">https://doi.org/10.1109/DICTA51227.2020.9363428</a></p></li>
+<li><p>[R468] S. Shivajirao et al. (2019). Mask R-CNN End-to-End Text Detection and Recognition. 2019 18th IEEE International Conference On Machine Learning And Applications (ICMLA). <a class="reference external" href="https://doi.org/10.1109/ICMLA.2019.00289">https://doi.org/10.1109/ICMLA.2019.00289</a></p></li>
+<li><p>[R152] S. Wu et al. (2024). On Exploring Robustness of Scene Text Detection. 2024 China Automation Congress (CAC). <a class="reference external" href="https://doi.org/10.1109/CAC63892.2024.10864497">https://doi.org/10.1109/CAC63892.2024.10864497</a></p></li>
+<li><p>[R349] S. Zhang et al. (2021). OPMP: An Omnidirectional Pyramid Mask Proposal Network for Arbitrary-Shape Scene Text Detection. IEEE Transactions on Multimedia. <a class="reference external" href="https://doi.org/10.1109/TMM.2020.2978630">https://doi.org/10.1109/TMM.2020.2978630</a></p></li>
+<li><p>[R455] S. Zhong et al. (2019). Semantic Segmentation Network with Local Multi-Scale Attention for Locating Traffic Sign. 2019 12th International Conference on Intelligent Computation Technology and Automation (ICICTA). <a class="reference external" href="https://doi.org/10.1109/ICICTA49267.2019.00080">https://doi.org/10.1109/ICICTA49267.2019.00080</a></p></li>
+<li><p>[R379] Sanjeewani et al. (2021). A Novel Evolving Classifier with a False Alarm Class for Speed Limit Sign Recognition. 2021 IEEE Congress on Evolutionary Computation, CEC 2021 - Proceedings. <a class="reference external" href="https://doi.org/10.1109/CEC45853.2021.9504710">https://doi.org/10.1109/CEC45853.2021.9504710</a></p></li>
+<li><p>[R251] Shu et al. (2023). EI2SR: Learning an Enhanced Intra-Instance Semantic Relationship for Arbitrary-Shaped Scene Text Detection. ICASSP, IEEE International Conference on Acoustics, Speech and Signal Processing - Proceedings. <a class="reference external" href="https://doi.org/10.1109/ICASSP49357.2023.10096106">https://doi.org/10.1109/ICASSP49357.2023.10096106</a></p></li>
+<li><p>[R022] Shwetha et al. (2026). Deep Learning-Based Automatic Video-to-Text Transcription System. ICKECS 2026 - Proceedings of 4th IEEE International Conference on Knowledge Engineering and Communication Systems. <a class="reference external" href="https://doi.org/10.1109/ICKECS70176.2026.11528000">https://doi.org/10.1109/ICKECS70176.2026.11528000</a></p></li>
+<li><p>[R162] Siow et al. (2024). Instance Segmentation Evaluation for Traffic Signs. Journal of Advanced Research in Applied Sciences and Engineering Technology. <a class="reference external" href="https://doi.org/10.37934/araset.34.2.327341">https://doi.org/10.37934/araset.34.2.327341</a></p></li>
+<li><p>[R480] W. Wang et al. (2019). Efficient and Accurate Arbitrary-Shaped Text Detection With Pixel Aggregation Network. 2019 IEEE/CVF International Conference on Computer Vision (ICCV). <a class="reference external" href="https://doi.org/10.1109/ICCV.2019.00853">https://doi.org/10.1109/ICCV.2019.00853</a></p></li>
+<li><p>[R395] Wan et al. (2020). TextScanner: Reading characters in order for robust scene text recognition. AAAI 2020 - 34th AAAI Conference on Artificial Intelligence.</p></li>
+<li><p>[R339] Wang et al. (2021). Semi-Supervised Pixel-Level Scene Text Segmentation by Mutually Guided Network. IEEE Transactions on Image Processing. <a class="reference external" href="https://doi.org/10.1109/TIP.2021.3113157">https://doi.org/10.1109/TIP.2021.3113157</a></p></li>
+<li><p>[R284] Wang et al. (2022). Semantic Compensation Based Dual-Stream Feature Interaction Network for Multi-oriented Scene Text Detection. 2022 IEEE International Conference on Visual Communications and Image Processing, VCIP 2022. <a class="reference external" href="https://doi.org/10.1109/VCIP56404.2022.10008831">https://doi.org/10.1109/VCIP56404.2022.10008831</a></p></li>
+<li><p>[R268] Wang et al. (2023). A Multi-scale Domain Adaptive Framework for Scene Text Detection. 2023 3rd International Conference on Neural Networks, Information and Communication Engineering, NNICE 2023. <a class="reference external" href="https://doi.org/10.1109/NNICE58320.2023.10105723">https://doi.org/10.1109/NNICE58320.2023.10105723</a></p></li>
+<li><p>[R247] Wang et al. (2023). Enhancing Scene Text Segmentation through Subtask Decomposition. 2023 International Conference on Image Processing, Computer Vision and Machine Learning, ICICML 2023. <a class="reference external" href="https://doi.org/10.1109/ICICML60161.2023.10424830">https://doi.org/10.1109/ICICML60161.2023.10424830</a></p></li>
+<li><p>[R233] Wang et al. (2023). Region-Aware Arbitrary-Shaped Text Detection With Progressive Fusion. IEEE Transactions on Multimedia. <a class="reference external" href="https://doi.org/10.1109/TMM.2022.3181448">https://doi.org/10.1109/TMM.2022.3181448</a></p></li>
+<li><p>[R072] Wang et al. (2025). ME-Seg&amp;DLS-Net: A Dataset and a Network for Autonomous Driving Based on Multi-Element Semantic Segmentation of Pavement. IEEE Transactions on Emerging Topics in Computational Intelligence. <a class="reference external" href="https://doi.org/10.1109/TETCI.2024.3423437">https://doi.org/10.1109/TETCI.2024.3423437</a></p></li>
+<li><p>[R297] X. Chen et al. (2022). Pixel-level end-to-end dual-channel bill text detection based algorithm. 2022 7th International Conference on Intelligent Computing and Signal Processing (ICSP). <a class="reference external" href="https://doi.org/10.1109/ICSP54964.2022.9778469">https://doi.org/10.1109/ICSP54964.2022.9778469</a></p></li>
+<li><p>[R080] X. Han et al. (2025). Focus Entirety and Perceive Environment for Arbitrary-Shaped Text Detection. IEEE Transactions on Multimedia. <a class="reference external" href="https://doi.org/10.1109/TMM.2024.3521797">https://doi.org/10.1109/TMM.2024.3521797</a></p></li>
+<li><p>[R025] X. Han et al. (2026). Balancing Optimization Strategies and Practical Goals: An Efficient Scene Text Detector. IEEE Transactions on Multimedia. <a class="reference external" href="https://doi.org/10.1109/TMM.2025.3623548">https://doi.org/10.1109/TMM.2025.3623548</a></p></li>
+<li><p>[R431] X. Jiang et al. (2020). Arbitrary-Shaped Text Detection With Adaptive Text Region Representation. IEEE Access. <a class="reference external" href="https://doi.org/10.1109/ACCESS.2020.2999069">https://doi.org/10.1109/ACCESS.2020.2999069</a></p></li>
+<li><p>[R380] X. Liu et al. (2021). A Multi-Level Feature Fusion Network For Scene Text Detection with Text Attention Mechanism. 2021 IEEE 4th Advanced Information Management, Communicates, Electronic and Automation Control Conference (IMCEC). <a class="reference external" href="https://doi.org/10.1109/IMCEC51613.2021.9482108">https://doi.org/10.1109/IMCEC51613.2021.9482108</a></p></li>
+<li><p>[R432] X. Qin et al. (2020). Arbitrary Shape Natural Scene Text Detection Method Based on Soft Attention Mechanism and Dilated Convolution. IEEE Access. <a class="reference external" href="https://doi.org/10.1109/ACCESS.2020.3007351">https://doi.org/10.1109/ACCESS.2020.3007351</a></p></li>
+<li><p>[R493] Xiao et al. (2019). A text-context-aware CNN network for multi-oriented and multi-language scene text detection. Proceedings of the International Conference on Document Analysis and Recognition, ICDAR. <a class="reference external" href="https://doi.org/10.1109/ICDAR.2019.00116">https://doi.org/10.1109/ICDAR.2019.00116</a></p></li>
+<li><p>[R123] Xu et al. (2024). Text Position-Aware Pixel Aggregation Network With Adaptive Gaussian Threshold: Detecting Text in the Wild. IEEE Transactions on Circuits and Systems for Video Technology. <a class="reference external" href="https://doi.org/10.1109/TCSVT.2023.3285096">https://doi.org/10.1109/TCSVT.2023.3285096</a></p></li>
+<li><p>[R070] Y. Tan et al. (2025). Method for Identifying Power Identification Board Under Tilt Angle Based on Geometric Correction and Attention Enhancement. 2025 4th International Conference on Smart Grids and Energy Systems (SGES). <a class="reference external" href="https://doi.org/10.1109/SGES66701.2025.11155936">https://doi.org/10.1109/SGES66701.2025.11155936</a></p></li>
+<li><p>[R451] Y. Xu et al. (2019). TextField: Learning a Deep Direction Field for Irregular Scene Text Detection. IEEE Transactions on Image Processing. <a class="reference external" href="https://doi.org/10.1109/TIP.2019.2900589">https://doi.org/10.1109/TIP.2019.2900589</a></p></li>
+<li><p>[R522] Yang et al. (2018). Intersection Perception Through Real-Time Semantic Segmentation to Assist Navigation of Visually Impaired Pedestrians. 2018 IEEE International Conference on Robotics and Biomimetics, ROBIO 2018. <a class="reference external" href="https://doi.org/10.1109/ROBIO.2018.8665211">https://doi.org/10.1109/ROBIO.2018.8665211</a></p></li>
+<li><p>[R191] Yang et al. (2024). Buffer-text: Detecting arbitrary shaped text in natural scene image. Engineering Applications of Artificial Intelligence. <a class="reference external" href="https://doi.org/10.1016/j.engappai.2023.107774">https://doi.org/10.1016/j.engappai.2023.107774</a></p></li>
+<li><p>[R213] Yao et al. (2023). Traffic sign detection and recognition under low illumination. Machine Vision and Applications. <a class="reference external" href="https://doi.org/10.1007/s00138-023-01417-y">https://doi.org/10.1007/s00138-023-01417-y</a></p></li>
+<li><p>[R131] Z. Chen (2024). Scene Text Detection using Hyperbolic Tangent Binarization and CLIP. 2024 6th International Conference on Robotics, Intelligent Control and Artificial Intelligence (RICAI). <a class="reference external" href="https://doi.org/10.1109/RICAI64321.2024.10910961">https://doi.org/10.1109/RICAI64321.2024.10910961</a></p></li>
+<li><p>[R467] Z. Huang et al. (2019). Mask R-CNN With Pyramid Attention Network for Scene Text Detection. 2019 IEEE Winter Conference on Applications of Computer Vision (WACV). <a class="reference external" href="https://doi.org/10.1109/WACV.2019.00086">https://doi.org/10.1109/WACV.2019.00086</a></p></li>
+<li><p>[R309] Zhang et al. (2022). Deep-learning generation of POI data with scene images. ISPRS Journal of Photogrammetry and Remote Sensing. <a class="reference external" href="https://doi.org/10.1016/j.isprsjprs.2022.04.004">https://doi.org/10.1016/j.isprsjprs.2022.04.004</a></p></li>
+<li><p>[R260] Zhang et al. (2023). Arbitrary Shape Text Detection via Segmentation With Probability Maps. IEEE Transactions on Pattern Analysis and Machine Intelligence. <a class="reference external" href="https://doi.org/10.1109/TPAMI.2022.3176122">https://doi.org/10.1109/TPAMI.2022.3176122</a></p></li>
+<li><p>[R502] Zhao et al. (2019). A 307-fps 351.7-GOPs/W Deep Learning FPGA Accelerator for Real-Time Scene Text Recognition. Proceedings - 2019 International Conference on Field-Programmable Technology, ICFPT 2019. <a class="reference external" href="https://doi.org/10.1109/ICFPT47387.2019.00043">https://doi.org/10.1109/ICFPT47387.2019.00043</a></p></li>
+<li><p>[R334] Zhu et al. (2021). TextMountain: Accurate scene text detection via instance segmentation. Pattern Recognition. <a class="reference external" href="https://doi.org/10.1016/j.patcog.2020.107336">https://doi.org/10.1016/j.patcog.2020.107336</a></p></li>
+<li><p>[R273] Zhu et al. (2022). TransText: Improving scene text detection via transformer. DIGITAL SIGNAL PROCESSING. <a class="reference external" href="https://doi.org/10.1016/j.dsp.2022.103698">https://doi.org/10.1016/j.dsp.2022.103698</a></p></li>
+</ul>
 </section>
 </section>
 
@@ -550,16 +1247,25 @@ SeaFront dataset hazardous goods placards segmentation baseline
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-sistematica">Revisión sistemática</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flujo-de-seleccion-y-decisiones-de-los-revisores">Flujo de selección y decisiones de los revisores</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#del-corpus-a-la-eleccion-de-arquitecturas">Del corpus a la elección de arquitecturas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estrategia-de-busqueda">3.1 Estrategia de búsqueda</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identificacion-de-los-modelos-base">3.2 Identificación de los modelos base</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-por-modelo-base">3.3 Análisis por modelo base</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fcn-fully-convolutional-network-long-shelhamer-y-darrell-2015">FCN, Fully Convolutional Network (Long, Shelhamer y Darrell, 2015)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#segnet-badrinarayanan-kendall-y-cipolla-2017">SegNet (Badrinarayanan, Kendall y Cipolla, 2017)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#u-net-ronneberger-fischer-y-brox-2015">U-Net (Ronneberger, Fischer y Brox, 2015)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deeplab-chen-papandreou-kokkinos-murphy-y-yuille-2018">DeepLab (Chen, Papandreou, Kokkinos, Murphy y Yuille, 2018)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pspnet-pyramid-scene-parsing-network-zhao-shi-qi-wang-y-jia-2017">PSPNet, Pyramid Scene Parsing Network (Zhao, Shi, Qi, Wang y Jia, 2017)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fuentes-de-aplicacion-y-criterios-de-lectura">Fuentes de aplicación y criterios de lectura</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-critica-y-brecha">3.4 Comparación crítica y brecha</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#antecedentes-del-dominio-fuera-de-la-busqueda-sistematica">3.5 Antecedentes del dominio fuera de la búsqueda sistemática</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fuentes-de-aplicacion-y-criterios-de-lectura">Fuentes de aplicación y criterios de lectura</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#busqueda-exploratoria-complementaria">Búsqueda exploratoria complementaria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#articulos-que-fundamentan-las-cinco-arquitecturas">Artículos que fundamentan las cinco arquitecturas</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#articulos-que-fundamentan-las-cinco-arquitecturas">Artículos que fundamentan las cinco arquitecturas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anexo-a-tabla-de-sintesis-estudios-de-senales-rotulos-y-letreros-n-14">Anexo A. Tabla de síntesis: estudios de señales, rótulos y letreros (n = 14)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referencias">Referencias</a></li>
 </ul>
   </nav></div>
 
@@ -574,7 +1280,7 @@ SeaFront dataset hazardous goods placards segmentation baseline
   <div class="footer-item">
     
 <p class="component-author">
-Por Luis Perez y Daniel Carbono
+Por Luis Perez y Daniel Carbonó
 </p>
 
   </div>
