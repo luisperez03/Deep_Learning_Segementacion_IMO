@@ -55,10 +55,23 @@ Las versiones exactas de cada corrida están en su `config.json`; las del test d
 1. Descargar HAZMAT-13 desde el repositorio oficial (https://github.com/mrl-amrl/HAZMAT13), primer enlace de
    descarga (carpeta `VOC2012`, con 1.685 fotografías y 1.583 máscaras), y comprobar que los SHA-256 de
    imágenes y máscaras coinciden con los de `protocolo/*.csv`. Verificado el 2026-11-08 para train y validación.
-2. Entrenar cada red y semilla con la configuración de `corridas/*/config.json`. **[Por completar por Luis:
-   script y comando de entrenamiento.]**
-3. Evaluar el checkpoint de cada corrida sobre `protocolo/test.csv`. **[Por completar: script y comando de
-   evaluación.]**
+2. Preparar la base con la partición congelada: copiar `protocolo/train.csv`, `val.csv`, `test.csv` y
+   `normalization_train.json` a `resultados/preentrenamiento/`, y generar las máscaras binarias en la ruta
+   `binary_mask_path` de cada fila con la función `binary_mask` de `fuentes/scripts/preparar_base.py`
+   (1 donde la máscara original no es fondo). Rehacer la partición desde cero con `preparar_base.py` requiere
+   además `config/` y los resultados de la revisión de similitud, que no se publican.
+3. Entrenar cada red y semilla con la configuración de `corridas/*/config.json`:
+
+   ```python
+   from colab_runner import run
+   run('fcn', 11, 'resultados/piloto')   # redes: fcn, segnet, unet (modelos_base.py)
+   ```
+
+   DeepLab y PSPNet compactas (`bases_v2.py`) se entrenaron con el cuaderno
+   `fuentes/colab/Experimento_IMO_A100_optimizado.ipynb`, que usa el mismo `run` con las redes de `BASES`.
+   El test se evalúa en la celda "Abrir el test reservado" de ese cuaderno: comprueba los hashes de los
+   manifiestos, carga `best.pt` de cada corrida y llama a `evaluate` sobre `partition('test', allow_test=True)`.
+   `fuentes/colab/Experimento.ipynb` es la versión para T4 y `Bases_v2.ipynb` define las dos redes compactas.
 4. Recalcular las tablas de `comparacion/` a partir de `test/*/por_imagen.csv`.
 
 Para verificar los resultados sin reentrenar, basta con el paso 4: las predicciones de test de las 25 corridas
