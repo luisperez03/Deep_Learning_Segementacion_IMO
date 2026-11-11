@@ -1,0 +1,22 @@
+arxiv,decision,motivo
+2609.22060v1,excluir,E2 deteccion con cajas (YOLOv2)
+2602.15383v1,excluir,E3 traduccion dia-noche de imagenes
+2512.22392v2,excluir,E3 mapeo peatonal
+2410.23085v3,excluir,E3 preentrenamiento autosupervisado general
+2404.02481v1,excluir,E2 compresion por regiones de interes
+2403.01868v1,excluir,E3 deteccion de bases de postes
+2402.18309v1,excluir,E3 LiDAR de vegetacion
+2312.11153v2,incluir_texto_en_escena,deteccion de texto en escena
+2305.02008v2,excluir,E4 dataset sin comparacion de modelos de segmentacion de senales
+2209.13156v1,excluir,E3 escenas interiores
+2201.06415v1,excluir,E3 segmentacion urbana general
+2109.10083v1,excluir,E3 segmentacion urbana general
+2107.02827v1,excluir,E3 extraccion de espectros
+2106.02567v1,excluir,E3 inspeccion vial general
+2002.12509v1,incluir_texto_en_escena,texto en escena por segmentacion
+2002.06423v1,incluir_texto_en_escena,texto en escena por segmentacion
+1908.05612v6,excluir,E2 deteccion rotada con cajas
+1904.12640v2,incluir_texto_en_escena,texto en escena por pixel
+1811.07432v1,incluir_texto_en_escena,texto en escena por segmentacion y deteccion
+1809.00854v2,excluir,E3 busqueda de palabras
+1807.03021v2,excluir,E3 sintesis de imagenes de texto

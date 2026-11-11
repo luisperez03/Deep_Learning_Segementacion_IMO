@@ -6,8 +6,14 @@ La revisión examina cómo se han medido las predicciones sobre rótulos y qué 
 
 **Bases, fecha y periodo.** Web of Science Core Collection, Scopus e IEEE Xplore, consultadas el 8 de noviembre
 de 2026 con acceso institucional (Universidad del Norte; la exportación de Scopus se hizo por la Universidad del
-Magdalena). Periodo de publicación: 2018 a 2026. arXiv se revisó solo para detectar tendencias y no entra en
-los conteos.
+Magdalena). Periodo de publicación: 2018 a 2026. arXiv se consultó el 11 de noviembre de
+2026 como fuente complementaria, con las mismas cadenas adaptadas a su API (título y resumen, 2018 a
+2026). La cadena A devolvió 1 registro, ajeno al problema, y la B, 35. De los 36, 15 ya estaban entre
+los registros de las bases indexadas. De los 21 nuevos, el cribado por título y resumen excluyó 16 (E2,
+E3 y E4) y dejó 5 de texto en escena por segmentación, del mismo tipo que los 82 ya incluidos. Ninguno
+segmenta rótulos de peligro ni hace segmentación semántica de señales, así que arXiv no cambia la tabla
+de frecuencia ni la elección de modelos. Se reporta aparte y no entra en los conteos PRISMA
+(`arxiv_2026-11-11.csv` y `arxiv_cribado.csv`, en `fuentes/docs/` del repositorio).
 
 **Cadenas.** Se usaron dos cadenas. La A busca el problema: rótulos de peligro y señales de seguridad. La B busca
 los problemas vecinos de donde salen los modelos base: señales de tránsito, letreros y texto en escena.

@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -348,8 +348,14 @@
 <h2>3.1 Estrategia de búsqueda<a class="headerlink" href="#estrategia-de-busqueda" title="Link to this heading">#</a></h2>
 <p><strong>Bases, fecha y periodo.</strong> Web of Science Core Collection, Scopus e IEEE Xplore, consultadas el 8 de noviembre
 de 2026 con acceso institucional (Universidad del Norte; la exportación de Scopus se hizo por la Universidad del
-Magdalena). Periodo de publicación: 2018 a 2026. arXiv se revisó solo para detectar tendencias y no entra en
-los conteos.</p>
+Magdalena). Periodo de publicación: 2018 a 2026. arXiv se consultó el 11 de noviembre de
+2026 como fuente complementaria, con las mismas cadenas adaptadas a su API (título y resumen, 2018 a
+2026). La cadena A devolvió 1 registro, ajeno al problema, y la B, 35. De los 36, 15 ya estaban entre
+los registros de las bases indexadas. De los 21 nuevos, el cribado por título y resumen excluyó 16 (E2,
+E3 y E4) y dejó 5 de texto en escena por segmentación, del mismo tipo que los 82 ya incluidos. Ninguno
+segmenta rótulos de peligro ni hace segmentación semántica de señales, así que arXiv no cambia la tabla
+de frecuencia ni la elección de modelos. Se reporta aparte y no entra en los conteos PRISMA
+(<code class="docutils literal notranslate"><span class="pre">arxiv_2026-11-11.csv</span></code> y <code class="docutils literal notranslate"><span class="pre">arxiv_cribado.csv</span></code>, en <code class="docutils literal notranslate"><span class="pre">fuentes/docs/</span></code> del repositorio).</p>
 <p><strong>Cadenas.</strong> Se usaron dos cadenas. La A busca el problema: rótulos de peligro y señales de seguridad. La B busca
 los problemas vecinos de donde salen los modelos base: señales de tránsito, letreros y texto en escena.</p>
 <p><em>Cadena A, Web of Science:</em> TS=((«hazard* material*» OR hazmat OR «dangerous goods» OR placard* OR
